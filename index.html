@@ -1,0 +1,2550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Elephant AI — Marketing intelligence that never forgets.</title>
+<meta name="description" content="Elephant AI watches your marketing data 24/7, catches anomalies before they cost you, and turns raw analytics into prioritised action." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400..700&display=swap" rel="stylesheet">
+
+<style>
+  /* ─────────────────────────────────────────────
+     Design tokens
+     ───────────────────────────────────────────── */
+  :root {
+    --forest-950: #07150f;
+    --forest-900: #0a1d15;
+    --forest-800: #0f2a1f;
+    --forest-700: #1a3d2b;
+    --forest-600: #2d5c42;
+    --forest-500: #4a7d63;
+    --forest-300: #8aaa97;
+    --forest-200: #b8cdc1;
+    --forest-100: #d4e3da;
+
+    --butter-100: #fefaeb;
+    --butter-200: #fdf2cc;
+    --butter-300: #faea9e;
+    --butter-400: #f5e07a;
+    --butter-500: #ecd24d;
+    --butter-600: #d4b734;
+    --butter-700: #a88d20;
+
+    --cream: #faf7ee;
+    --cream-2: #f3eedc;
+    --ink: #0a1d15;
+    --ink-2: #2a3a32;
+    --ink-3: #5a6b62;
+    --ink-4: #8a9690;
+    --line: rgba(15, 42, 31, 0.1);
+    --line-strong: rgba(15, 42, 31, 0.2);
+
+    --font-sans: 'DM Sans', -apple-system, system-ui, sans-serif;
+
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 14px;
+    --radius-xl: 22px;
+
+    --max-w: 1200px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+  body {
+    font-family: var(--font-sans);
+    font-weight: 400;
+    color: var(--ink);
+    background: var(--cream);
+    line-height: 1.55;
+    font-size: 16px;
+    overflow-x: hidden;
+  }
+
+  /* Subtle grid texture */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background-image:
+      radial-gradient(circle at 1px 1px, rgba(15, 42, 31, 0.02) 1px, transparent 0);
+    background-size: 24px 24px;
+    opacity: 0.7;
+  }
+
+  ::selection { background: var(--butter-400); color: var(--forest-900); }
+
+  .wrap { max-width: var(--max-w); margin: 0 auto; padding: 0 28px; position: relative; z-index: 1; }
+
+  a { color: inherit; text-decoration: none; }
+
+  /* ─────────────────────────────────────────────
+     NAV
+     ───────────────────────────────────────────── */
+  .nav {
+    position: sticky; top: 0; z-index: 100;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    background: rgba(250, 247, 238, 0.8);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-inner {
+    max-width: var(--max-w); margin: 0 auto; padding: 14px 28px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 24px;
+  }
+  .logo {
+    display: flex; align-items: center; gap: 10px;
+    font-weight: 600;
+    font-size: 18px;
+    letter-spacing: -0.02em;
+    color: var(--forest-900);
+  }
+  .logo-mark {
+    width: 30px; height: 30px;
+    background: var(--butter-400);
+    border-radius: 8px;
+    display: grid; place-items: center;
+    color: var(--forest-900);
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: -0.02em;
+    position: relative;
+  }
+  .logo-mark::after {
+    content: '';
+    position: absolute;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--forest-800);
+    top: 6px; right: 5px;
+  }
+  .nav-mid {
+    display: flex; align-items: center; gap: 4px;
+  }
+  .nav-mid a {
+    padding: 8px 14px;
+    border-radius: 8px;
+    color: var(--ink-2);
+    font-size: 14px;
+    font-weight: 500;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  .nav-mid a:hover { background: rgba(15, 42, 31, 0.05); color: var(--forest-900); }
+  .nav-actions { display: flex; align-items: center; gap: 10px; }
+
+  .lang {
+    display: flex;
+    background: rgba(15, 42, 31, 0.06);
+    border-radius: 999px;
+    padding: 3px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .lang button {
+    border: 0;
+    background: transparent;
+    padding: 5px 11px;
+    border-radius: 999px;
+    cursor: pointer;
+    color: var(--ink-3);
+    font-family: inherit;
+    font-weight: 600;
+    transition: all 0.2s ease;
+  }
+  .lang button.active {
+    background: var(--forest-800);
+    color: var(--butter-300);
+  }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 9px 16px;
+    border-radius: 999px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    border: 0; cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.2s ease, background 0.2s ease;
+    white-space: nowrap;
+  }
+  .btn-primary {
+    background: var(--forest-800);
+    color: var(--cream);
+  }
+  .btn-primary:hover {
+    background: var(--forest-900);
+    transform: translateY(-1px);
+    box-shadow: 0 10px 24px -10px rgba(15, 42, 31, 0.4);
+  }
+  .btn-butter {
+    background: var(--butter-400);
+    color: var(--forest-900);
+  }
+  .btn-butter:hover {
+    background: var(--butter-300);
+    transform: translateY(-1px);
+    box-shadow: 0 10px 24px -10px rgba(245, 224, 122, 0.6);
+  }
+  .btn-ghost {
+    background: transparent;
+    color: var(--ink);
+    border: 1px solid var(--line-strong);
+  }
+  .btn-ghost:hover { background: rgba(15, 42, 31, 0.04); }
+  .btn-lg { padding: 13px 22px; font-size: 15px; }
+
+  /* ─────────────────────────────────────────────
+     HERO — Hardal-inspired compact
+     ───────────────────────────────────────────── */
+  .hero { position: relative; padding: 72px 0 80px; overflow: hidden; }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -100px; right: -250px;
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, var(--butter-300) 0%, transparent 60%);
+    opacity: 0.55;
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -200px; left: -200px;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, var(--butter-200) 0%, transparent 65%);
+    opacity: 0.5;
+    pointer-events: none;
+  }
+  .hero-inner { position: relative; z-index: 2; text-align: center; max-width: 920px; margin: 0 auto; }
+
+  .pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 14px 6px 8px;
+    background: var(--forest-800);
+    color: var(--cream);
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 500;
+    margin-bottom: 28px;
+  }
+  .pill-tag {
+    background: var(--butter-400);
+    color: var(--forest-900);
+    padding: 3px 8px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+
+  h1.hero-title {
+    font-weight: 600;
+    font-size: clamp(40px, 6.5vw, 72px);
+    line-height: 1.04;
+    letter-spacing: -0.035em;
+    color: var(--forest-900);
+    margin-bottom: 14px;
+  }
+
+  /* Rotating words */
+  .rotator-line {
+    font-weight: 600;
+    font-size: clamp(40px, 6.5vw, 72px);
+    line-height: 1.04;
+    letter-spacing: -0.035em;
+    color: var(--forest-900);
+    margin-bottom: 28px;
+    display: flex; flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.25em;
+  }
+  .rotator {
+    display: inline-block;
+    background: var(--butter-400);
+    color: var(--forest-900);
+    padding: 0 0.25em;
+    border-radius: 14px;
+    position: relative;
+    min-width: 5em;
+    text-align: center;
+    overflow: hidden;
+    vertical-align: baseline;
+  }
+  .rotator-track {
+    display: inline-block;
+    transition: transform 0.5s cubic-bezier(0.65, 0.05, 0.36, 1);
+  }
+  .rotator-track span {
+    display: block;
+    white-space: nowrap;
+    padding: 0 0.1em;
+  }
+
+  .hero-sub {
+    font-size: clamp(16px, 1.45vw, 18px);
+    line-height: 1.6;
+    color: var(--ink-2);
+    max-width: 620px;
+    margin: 0 auto 36px;
+    font-weight: 400;
+  }
+
+  .hero-cta {
+    display: flex; flex-wrap: wrap; gap: 12px;
+    justify-content: center;
+    margin-bottom: 0;
+  }
+
+  /* Hero visual — dashboard preview */
+  .hero-visual {
+    position: relative; z-index: 2;
+    max-width: 1000px;
+    margin: 64px auto 0;
+    background: var(--forest-900);
+    border-radius: var(--radius-xl);
+    padding: 24px;
+    box-shadow:
+      0 40px 80px -30px rgba(15, 42, 31, 0.45),
+      0 0 0 1px rgba(245, 224, 122, 0.08);
+    overflow: hidden;
+  }
+  .hero-visual::before {
+    content: '';
+    position: absolute;
+    top: -30%; left: 30%;
+    width: 60%; height: 200%;
+    background: radial-gradient(ellipse, rgba(245, 224, 122, 0.1) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .hv-top {
+    display: flex; align-items: center; justify-content: space-between;
+    padding-bottom: 18px;
+    margin-bottom: 18px;
+    border-bottom: 1px solid rgba(245, 224, 122, 0.1);
+    position: relative; z-index: 1;
+  }
+  .hv-title {
+    display: flex; align-items: center; gap: 10px;
+    color: var(--butter-300);
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .hv-dot { width: 8px; height: 8px; background: #4ade80; border-radius: 50%; box-shadow: 0 0 10px #4ade80; animation: pulse 2s ease-in-out infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+  .hv-tabs { display: flex; gap: 6px; }
+  .hv-tab {
+    padding: 5px 12px;
+    background: rgba(245, 224, 122, 0.08);
+    color: var(--butter-300);
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 500;
+  }
+  .hv-tab.active { background: var(--butter-400); color: var(--forest-900); }
+
+  .hv-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 12px;
+    position: relative; z-index: 1;
+  }
+  .hv-card {
+    background: rgba(245, 224, 122, 0.04);
+    border: 1px solid rgba(245, 224, 122, 0.1);
+    padding: 16px;
+    border-radius: 10px;
+  }
+  .hv-label {
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--forest-300);
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+  .hv-value {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--butter-300);
+    line-height: 1;
+    margin-bottom: 6px;
+    letter-spacing: -0.02em;
+  }
+  .hv-delta { font-size: 11px; font-weight: 500; }
+  .hv-delta.up { color: #6ee7b7; }
+  .hv-delta.down { color: #fca78c; }
+
+  /* ─────────────────────────────────────────────
+     INTEGRATIONS STRIP
+     ───────────────────────────────────────────── */
+  .strip {
+    padding: 36px 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    background: var(--cream-2);
+  }
+  .strip-label {
+    text-align: center;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin-bottom: 22px;
+    font-weight: 600;
+  }
+  .strip-tools {
+    display: flex; flex-wrap: wrap; justify-content: center;
+    gap: 20px 40px;
+    align-items: center;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .tool-tag {
+    display: flex; align-items: center; gap: 8px;
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--forest-700);
+    letter-spacing: -0.01em;
+    opacity: 0.78;
+    transition: opacity 0.2s ease;
+  }
+  .tool-tag:hover { opacity: 1; }
+  .tool-tag svg { color: var(--forest-700); flex-shrink: 0; }
+
+  .tool-more {
+    padding: 5px 12px 5px 10px;
+    border: 1px dashed var(--line-strong);
+    border-radius: 999px;
+    opacity: 0.55;
+    font-size: 13px;
+    font-weight: 500;
+  }
+  .tool-more:hover { opacity: 0.85; border-color: var(--forest-600); }
+
+  /* ─────────────────────────────────────────────
+     SECTION BASE
+     ───────────────────────────────────────────── */
+  section { padding: 100px 0; position: relative; }
+
+  .sec-head { text-align: center; max-width: 720px; margin: 0 auto 56px; }
+  .sec-head.left { text-align: left; margin: 0 0 56px; }
+
+  .sec-eyebrow {
+    display: inline-block;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--forest-700);
+    margin-bottom: 16px;
+    font-weight: 700;
+    background: var(--butter-200);
+    padding: 6px 12px;
+    border-radius: 999px;
+  }
+  .sec-title {
+    font-weight: 600;
+    font-size: clamp(32px, 4.5vw, 48px);
+    line-height: 1.08;
+    letter-spacing: -0.025em;
+    color: var(--forest-900);
+    margin-bottom: 18px;
+  }
+  .sec-title .h {
+    background: var(--butter-300);
+    padding: 0 0.2em;
+    border-radius: 8px;
+  }
+  .sec-sub {
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--ink-2);
+    max-width: 620px;
+    margin: 0 auto;
+  }
+  .sec-head.left .sec-sub { margin: 0; }
+
+  /* ─────────────────────────────────────────────
+     PROBLEM
+     ───────────────────────────────────────────── */
+  .problem {
+    background: var(--cream-2);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .problem-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    margin-top: 8px;
+  }
+  .problem-card {
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: 28px 24px;
+    position: relative;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .problem-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 18px 36px -20px rgba(15, 42, 31, 0.15);
+  }
+  .problem-icon {
+    width: 38px; height: 38px;
+    background: var(--butter-300);
+    color: var(--forest-900);
+    border-radius: 9px;
+    display: grid; place-items: center;
+    margin-bottom: 18px;
+  }
+  .problem-title {
+    font-weight: 600;
+    font-size: 17px;
+    color: var(--forest-900);
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+  }
+  .problem-desc {
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--ink-3);
+  }
+
+  /* ─────────────────────────────────────────────
+     PRODUCTS — Tab switcher (Insider-One inspired)
+     ───────────────────────────────────────────── */
+  .products {
+    background: var(--forest-900);
+    color: var(--cream);
+    overflow: hidden;
+    position: relative;
+  }
+  .products::before {
+    content: '';
+    position: absolute;
+    top: -10%; right: -15%;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(245, 224, 122, 0.08) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .products::after {
+    content: '';
+    position: absolute;
+    bottom: -15%; left: -10%;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(245, 224, 122, 0.06) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .products .wrap { position: relative; z-index: 1; }
+
+  .products .sec-eyebrow {
+    background: rgba(245, 224, 122, 0.15);
+    color: var(--butter-300);
+  }
+  .products .sec-title { color: var(--cream); }
+  .products .sec-title .h { color: var(--forest-900); }
+  .products .sec-sub { color: var(--forest-200); }
+
+  .prod-tabs {
+    display: flex; justify-content: center; gap: 10px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+  }
+  .prod-tab {
+    background: rgba(245, 224, 122, 0.06);
+    color: var(--cream);
+    border: 1px solid rgba(245, 224, 122, 0.15);
+    padding: 12px 22px;
+    border-radius: 999px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .prod-tab:hover { background: rgba(245, 224, 122, 0.12); }
+  .prod-tab.active {
+    background: var(--butter-400);
+    color: var(--forest-900);
+    border-color: var(--butter-400);
+  }
+  .prod-tab-num {
+    display: inline-grid; place-items: center;
+    width: 22px; height: 22px;
+    background: rgba(15, 42, 31, 0.2);
+    border-radius: 50%;
+    font-size: 11px;
+    font-weight: 700;
+  }
+  .prod-tab.active .prod-tab-num {
+    background: var(--forest-800);
+    color: var(--butter-300);
+  }
+
+  .prod-panel {
+    display: none;
+    grid-template-columns: 1fr 1.05fr;
+    gap: 56px;
+    align-items: center;
+  }
+  .prod-panel.active { display: grid; }
+
+  .prod-label {
+    display: inline-block;
+    padding: 5px 12px;
+    background: var(--butter-400);
+    color: var(--forest-900);
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+  .prod-title {
+    font-weight: 600;
+    font-size: clamp(28px, 3.6vw, 40px);
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    color: var(--cream);
+    margin-bottom: 16px;
+  }
+  .prod-desc {
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--forest-200);
+    margin-bottom: 26px;
+  }
+  .prod-features {
+    list-style: none;
+    display: flex; flex-direction: column;
+    gap: 14px;
+    margin-bottom: 30px;
+  }
+  .prod-features li {
+    display: flex; gap: 12px; align-items: flex-start;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--forest-100);
+  }
+  .prod-features li svg {
+    flex-shrink: 0;
+    color: var(--butter-300);
+    margin-top: 3px;
+  }
+  .prod-features li strong { color: var(--cream); font-weight: 600; }
+
+  .prod-cta {
+    display: inline-flex; align-items: center; gap: 8px;
+    color: var(--forest-900);
+    background: var(--butter-400);
+    padding: 11px 20px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 14px;
+    transition: background 0.2s ease, transform 0.15s ease;
+  }
+  .prod-cta:hover { background: var(--butter-300); transform: translateX(2px); }
+
+  .prod-visual {
+    background: rgba(245, 224, 122, 0.04);
+    border: 1px solid rgba(245, 224, 122, 0.12);
+    border-radius: var(--radius-lg);
+    padding: 26px;
+    aspect-ratio: 4/3.2;
+    overflow: hidden;
+  }
+  .pv-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 18px;
+    font-size: 11px;
+    color: var(--forest-300);
+    letter-spacing: 0.06em;
+    font-weight: 600;
+  }
+  .pv-dot { width: 8px; height: 8px; background: #4ade80; border-radius: 50%; box-shadow: 0 0 10px #4ade80; animation: pulse 2s ease-in-out infinite; }
+
+  /* Anomaly Gate visual */
+  .alert-row {
+    background: rgba(245, 224, 122, 0.06);
+    border-left: 2px solid var(--butter-400);
+    padding: 12px 14px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    font-size: 13px;
+    color: var(--cream);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .alert-row.crit { border-color: #e2725b; background: rgba(226, 114, 91, 0.1); }
+  .alert-meta { font-size: 11px; color: var(--forest-300); margin-top: 3px; }
+  .alert-tag {
+    font-size: 10px;
+    padding: 3px 7px;
+    border-radius: 4px;
+    background: rgba(226, 114, 91, 0.18);
+    color: #f4a890;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-weight: 700;
+  }
+  .alert-tag.warn { background: rgba(245, 224, 122, 0.15); color: var(--butter-300); }
+
+  /* Query Analytics visual */
+  .query-bar {
+    display: grid; grid-template-columns: 1fr auto auto auto; gap: 12px;
+    padding: 11px 0;
+    border-bottom: 1px solid rgba(245, 224, 122, 0.08);
+    font-size: 12px;
+    align-items: center;
+  }
+  .query-bar:last-child { border-bottom: 0; }
+  .query-term { color: var(--cream); font-size: 12px; font-weight: 500; }
+  .query-intent {
+    font-size: 9px;
+    padding: 3px 7px;
+    border-radius: 4px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+  .query-intent.trans { background: rgba(110, 231, 183, 0.15); color: #6ee7b7; }
+  .query-intent.info { background: rgba(245, 224, 122, 0.15); color: var(--butter-300); }
+  .query-intent.brand { background: rgba(125, 211, 252, 0.15); color: #7dd3fc; }
+  .query-spend { color: var(--forest-300); font-size: 11px; font-weight: 500; }
+  .query-conv { color: var(--cream); font-size: 12px; font-weight: 600; }
+
+  /* LP Report visual */
+  .lp-score-wrap { display: flex; gap: 20px; align-items: center; margin-bottom: 22px; padding-bottom: 18px; border-bottom: 1px solid rgba(245, 224, 122, 0.1); }
+  .lp-score {
+    font-size: 56px;
+    font-weight: 600;
+    color: var(--butter-300);
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+  .lp-score-meta { flex: 1; }
+  .lp-score-label { font-size: 10px; color: var(--forest-300); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 5px; font-weight: 600; }
+  .lp-score-delta { font-size: 13px; color: #6ee7b7; font-weight: 500; }
+  .lp-issues { display: flex; flex-direction: column; }
+  .lp-issue {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(245, 224, 122, 0.06);
+    font-size: 12px;
+  }
+  .lp-issue:last-child { border-bottom: 0; }
+  .lp-issue-title { color: var(--cream); }
+  .lp-issue-tag {
+    font-size: 9px;
+    padding: 3px 7px;
+    border-radius: 4px;
+    letter-spacing: 0.04em;
+    font-weight: 700;
+  }
+  .lp-issue-tag.high { background: rgba(226, 114, 91, 0.18); color: #f4a890; }
+  .lp-issue-tag.med { background: rgba(245, 224, 122, 0.15); color: var(--butter-300); }
+
+  /* ─────────────────────────────────────────────
+     HOW IT WORKS
+     ───────────────────────────────────────────── */
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .step-card {
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: 32px 28px;
+    position: relative;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .step-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px -22px rgba(15, 42, 31, 0.15);
+  }
+  .step-num {
+    position: absolute;
+    top: 22px; right: 28px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--butter-700);
+    background: var(--butter-200);
+    padding: 4px 10px;
+    border-radius: 999px;
+    letter-spacing: 0.06em;
+  }
+  .step-icon {
+    width: 44px; height: 44px;
+    background: var(--forest-800);
+    color: var(--butter-300);
+    border-radius: 11px;
+    display: grid; place-items: center;
+    margin-bottom: 20px;
+  }
+  .step-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--forest-900);
+    margin-bottom: 10px;
+    letter-spacing: -0.015em;
+  }
+  .step-desc {
+    font-size: 14.5px;
+    color: var(--ink-2);
+    line-height: 1.6;
+  }
+
+  /* ─────────────────────────────────────────────
+     AUDIENCE
+     ───────────────────────────────────────────── */
+  .audience {
+    background: white;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .audience-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+  }
+  .aud-card {
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: 38px 34px;
+    position: relative;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .aud-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 18px 36px -22px rgba(15, 42, 31, 0.12);
+  }
+  .aud-card-alt {
+    background: var(--cream-2);
+  }
+  .aud-tag {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+    font-weight: 700;
+    background: var(--butter-200);
+    color: var(--forest-700);
+  }
+  .aud-title {
+    font-size: 28px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin-bottom: 14px;
+    line-height: 1.15;
+    color: var(--forest-900);
+  }
+  .aud-desc {
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 24px;
+    color: var(--ink-2);
+  }
+  .aud-points {
+    list-style: none;
+    display: flex; flex-direction: column;
+    gap: 11px;
+    font-size: 14px;
+  }
+  .aud-points li { display: flex; gap: 10px; align-items: flex-start; line-height: 1.5; color: var(--ink-2); }
+  .aud-points li svg {
+    flex-shrink: 0;
+    margin-top: 3px;
+    color: var(--forest-600);
+  }
+
+  /* ─────────────────────────────────────────────
+     PRICING — Single "Let's talk" card
+     ───────────────────────────────────────────── */
+  .price-single-wrap {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .price-single {
+    background: var(--forest-800);
+    color: var(--cream);
+    border: 1px solid var(--forest-800);
+    border-radius: var(--radius-xl);
+    padding: 56px 48px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 30px 60px -28px rgba(15, 42, 31, 0.35);
+  }
+  .price-single::before {
+    content: '';
+    position: absolute;
+    top: -30%; right: -15%;
+    width: 60%; height: 100%;
+    background: radial-gradient(circle, rgba(245, 224, 122, 0.12) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .price-single::after {
+    content: '';
+    position: absolute;
+    bottom: -40%; left: -20%;
+    width: 60%; height: 100%;
+    background: radial-gradient(circle, rgba(245, 224, 122, 0.08) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .price-single-inner {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+  }
+  .price-badge-static {
+    display: inline-block;
+    background: var(--butter-400);
+    color: var(--forest-900);
+    padding: 5px 14px;
+    border-radius: 999px;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 28px;
+  }
+  .price-single-amount {
+    font-size: clamp(40px, 5.5vw, 60px);
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--butter-300);
+    margin-bottom: 18px;
+  }
+  .price-single-desc {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--forest-200);
+    max-width: 480px;
+    margin: 0 auto 32px;
+  }
+  .price-single-features {
+    list-style: none;
+    display: flex; flex-direction: column;
+    gap: 12px;
+    text-align: left;
+    max-width: 480px;
+    margin: 0 auto 36px;
+    padding-top: 28px;
+    border-top: 1px solid rgba(245, 224, 122, 0.15);
+  }
+  .price-single-features li {
+    display: flex; gap: 12px; align-items: flex-start;
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: var(--forest-100);
+  }
+  .price-single-features li svg {
+    flex-shrink: 0;
+    color: var(--butter-300);
+    margin-top: 3px;
+  }
+  .price-single-cta {
+    display: flex; justify-content: center;
+  }
+  .price-single-cta .btn { padding: 14px 28px; }
+
+  /* ─────────────────────────────────────────────
+     SECURITY / TRUST
+     ───────────────────────────────────────────── */
+  .trust {
+    background: var(--cream-2);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .trust-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .trust-icon-wrap {
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-xl);
+    padding: 40px;
+    display: grid; place-items: center;
+    aspect-ratio: 1;
+    max-width: 380px;
+    position: relative;
+  }
+  .trust-shield {
+    width: 100%;
+    max-width: 240px;
+    color: var(--butter-500);
+  }
+  .trust-badges {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: 28px;
+  }
+  .trust-badge {
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 14px 16px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .trust-badge svg {
+    flex-shrink: 0;
+    color: var(--forest-700);
+  }
+  .trust-badge-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--forest-900);
+    line-height: 1.2;
+    margin-bottom: 2px;
+  }
+  .trust-badge-desc {
+    font-size: 11px;
+    color: var(--ink-3);
+    line-height: 1.3;
+  }
+
+  /* ─────────────────────────────────────────────
+     FAQ
+     ───────────────────────────────────────────── */
+  .faq-wrap { max-width: 800px; margin: 0 auto; }
+  .faq-list { margin-top: 8px; border-top: 1px solid var(--line); }
+  .faq-item { border-bottom: 1px solid var(--line); }
+  .faq-q {
+    width: 100%;
+    background: transparent;
+    border: 0;
+    padding: 22px 0;
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 24px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--forest-900);
+    letter-spacing: -0.015em;
+    text-align: left;
+    line-height: 1.35;
+  }
+  .faq-q:hover { color: var(--forest-700); }
+  .faq-toggle {
+    flex-shrink: 0;
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: var(--butter-300);
+    color: var(--forest-900);
+    display: grid; place-items: center;
+    transition: transform 0.3s ease, background 0.2s ease;
+  }
+  .faq-item.open .faq-toggle { transform: rotate(45deg); background: var(--butter-400); }
+  .faq-a {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.4s ease, padding 0.3s ease;
+  }
+  .faq-item.open .faq-a {
+    max-height: 400px;
+    padding-bottom: 22px;
+  }
+  .faq-a p {
+    color: var(--ink-2);
+    font-size: 15px;
+    line-height: 1.65;
+  }
+
+  /* ─────────────────────────────────────────────
+     CONTACT
+     ───────────────────────────────────────────── */
+  .contact {
+    background: var(--forest-900);
+    color: var(--cream);
+    overflow: hidden;
+    position: relative;
+  }
+  .contact::before {
+    content: '';
+    position: absolute;
+    bottom: -30%; right: -10%;
+    width: 60%; height: 100%;
+    background: radial-gradient(ellipse, rgba(245, 224, 122, 0.1) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .contact::after {
+    content: '';
+    position: absolute;
+    top: -20%; left: -15%;
+    width: 50%; height: 80%;
+    background: radial-gradient(circle, rgba(245, 224, 122, 0.08) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .contact .wrap { position: relative; z-index: 1; }
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: start;
+  }
+  .contact-title {
+    font-size: clamp(34px, 4.8vw, 52px);
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    color: var(--cream);
+    margin-bottom: 20px;
+  }
+  .contact-title .h {
+    background: var(--butter-400);
+    color: var(--forest-900);
+    padding: 0 0.2em;
+    border-radius: 8px;
+  }
+  .contact-sub {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--forest-200);
+    margin-bottom: 36px;
+    max-width: 480px;
+  }
+  .contact-channels { display: flex; flex-direction: column; gap: 14px; }
+  .channel {
+    display: flex; gap: 14px; align-items: center;
+    padding: 16px 20px;
+    background: rgba(245, 224, 122, 0.05);
+    border: 1px solid rgba(245, 224, 122, 0.12);
+    border-radius: var(--radius-md);
+    color: var(--cream);
+    transition: background 0.2s ease, transform 0.15s ease;
+  }
+  .channel:hover {
+    background: rgba(245, 224, 122, 0.1);
+    transform: translateX(3px);
+  }
+  .channel-icon {
+    width: 38px; height: 38px;
+    background: var(--butter-400);
+    color: var(--forest-900);
+    border-radius: 9px;
+    display: grid; place-items: center;
+    flex-shrink: 0;
+  }
+  .channel-label {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--forest-300);
+    margin-bottom: 2px;
+    font-weight: 700;
+  }
+  .channel-value {
+    font-size: 14px;
+    color: var(--cream);
+    font-weight: 500;
+  }
+
+  .contact-form {
+    background: rgba(250, 247, 238, 0.04);
+    border: 1px solid rgba(245, 224, 122, 0.15);
+    border-radius: var(--radius-lg);
+    padding: 32px;
+  }
+  .form-row { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+  .form-row label {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--forest-300);
+    font-weight: 700;
+  }
+  .form-row input,
+  .form-row textarea,
+  .form-row select {
+    background: rgba(15, 42, 31, 0.4);
+    border: 1px solid rgba(245, 224, 122, 0.18);
+    border-radius: 8px;
+    padding: 12px 14px;
+    color: var(--cream);
+    font-family: inherit;
+    font-size: 14px;
+    transition: border 0.2s ease;
+  }
+  .form-row input:focus, .form-row textarea:focus, .form-row select:focus {
+    outline: 0;
+    border-color: var(--butter-400);
+  }
+  .form-row textarea { min-height: 100px; resize: vertical; }
+
+  /* Invalid state (after submit attempt) */
+  .form-row.invalid input,
+  .form-row.invalid textarea {
+    border-color: #e2725b;
+    background: rgba(226, 114, 91, 0.06);
+  }
+  .form-row.invalid label {
+    color: #f4a890;
+  }
+
+  .form-error {
+    background: rgba(226, 114, 91, 0.12);
+    border: 1px solid rgba(226, 114, 91, 0.3);
+    color: #f4a890;
+    padding: 12px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .form-success {
+    text-align: center;
+    padding: 16px 8px 8px;
+  }
+  .form-success-icon {
+    width: 56px; height: 56px;
+    margin: 0 auto 18px;
+    background: var(--butter-300);
+    color: var(--forest-900);
+    border-radius: 50%;
+    display: grid; place-items: center;
+    animation: successPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  @keyframes successPop {
+    0% { transform: scale(0.4); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  .form-success-title {
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    color: var(--cream);
+    margin-bottom: 8px;
+  }
+  .form-success-msg {
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: var(--forest-200);
+    max-width: 320px;
+    margin: 0 auto;
+  }
+
+  /* ─────────────────────────────────────────────
+     FOOTER
+     ───────────────────────────────────────────── */
+  footer {
+    background: var(--forest-950);
+    color: var(--forest-300);
+    padding: 56px 0 28px;
+    border-top: 1px solid rgba(245, 224, 122, 0.1);
+  }
+  .foot-top {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 48px;
+    margin-bottom: 44px;
+  }
+  .foot-brand .logo { color: var(--cream); margin-bottom: 14px; }
+  .foot-tag {
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--forest-300);
+    max-width: 280px;
+  }
+  .foot-col h5 {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--butter-300);
+    margin-bottom: 14px;
+    font-weight: 700;
+  }
+  .foot-col ul { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+  .foot-col a {
+    color: var(--forest-300);
+    font-size: 13px;
+    transition: color 0.2s ease;
+  }
+  .foot-col a:hover { color: var(--cream); }
+
+  .foot-bot {
+    border-top: 1px solid rgba(245, 224, 122, 0.08);
+    padding-top: 24px;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    font-size: 12px;
+    color: var(--forest-300);
+  }
+
+  /* ─────────────────────────────────────────────
+     RESPONSIVE
+     ───────────────────────────────────────────── */
+  @media (max-width: 960px) {
+    section { padding: 72px 0; }
+    .hero { padding: 56px 0 64px; }
+    .nav-mid { display: none; }
+    .hv-grid { grid-template-columns: 1fr 1fr; }
+    .problem-grid { grid-template-columns: 1fr 1fr; }
+    .steps { grid-template-columns: 1fr; }
+    .prod-panel { grid-template-columns: 1fr; gap: 36px; }
+    .prod-panel.active { display: grid; }
+    .audience-grid { grid-template-columns: 1fr; }
+    .price-single { padding: 44px 32px; }
+    .trust-grid { grid-template-columns: 1fr; gap: 36px; }
+    .trust-icon-wrap { aspect-ratio: auto; max-width: 100%; padding: 28px; }
+    .trust-shield { max-width: 160px; }
+    .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+    .foot-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+  }
+  @media (max-width: 560px) {
+    .wrap { padding: 0 20px; }
+    .nav-inner { padding: 12px 20px; }
+    h1.hero-title, .rotator-line { font-size: 36px; }
+    .sec-title { font-size: 28px; }
+    .prod-title { font-size: 26px; }
+    .price-single-amount { font-size: 36px; }
+    .price-single { padding: 36px 24px; }
+    .hv-grid { grid-template-columns: 1fr; }
+    .problem-grid { grid-template-columns: 1fr; }
+    .step-card, .aud-card { padding: 26px 22px; }
+    .contact-form { padding: 22px; }
+    .foot-top { grid-template-columns: 1fr; }
+    .hero-visual { padding: 16px; }
+    .prod-visual { padding: 18px; }
+    .strip-tools { gap: 16px 24px; }
+  }
+</style>
+</head>
+
+<body>
+
+<!-- ═══════════════════════════════════════════
+     NAV
+     ═══════════════════════════════════════════ -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#" class="logo">
+      <span class="logo-mark">e</span>
+      Elephant AI
+    </a>
+    <div class="nav-mid">
+      <a href="#products" data-i18n="nav.products">Products</a>
+      <a href="#how" data-i18n="nav.how">How it works</a>
+      <a href="#pricing" data-i18n="nav.pricing">Pricing</a>
+      <a href="#faq" data-i18n="nav.faq">FAQ</a>
+      <a href="#contact" data-i18n="nav.contact">Contact</a>
+    </div>
+    <div class="nav-actions">
+      <div class="lang">
+        <button data-set-lang="en" class="active">EN</button>
+        <button data-set-lang="tr">TR</button>
+      </div>
+      <a href="#contact" class="btn btn-primary" data-i18n="nav.cta">Book a demo</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════
+     HERO
+     ═══════════════════════════════════════════ -->
+<section class="hero">
+  <div class="wrap hero-inner">
+
+    <div class="pill">
+      <span class="pill-tag" data-i18n="hero.pill.tag">NEW</span>
+      <span data-i18n="hero.pill.text">AI-native marketing intelligence platform</span>
+    </div>
+
+    <h1 class="hero-title" data-i18n="hero.title">
+      Always-on marketing intelligence
+    </h1>
+
+    <div class="rotator-line" aria-hidden="true">
+      <span data-i18n="hero.rotator.prefix">for</span>
+      <span class="rotator" id="rotator">
+        <span class="rotator-track" id="rotator-track">
+          <span data-i18n="hero.rotator.1">agencies</span>
+          <span data-i18n="hero.rotator.2">e-commerce</span>
+          <span data-i18n="hero.rotator.3">SaaS</span>
+          <span data-i18n="hero.rotator.4">lead-gen</span>
+          <span data-i18n="hero.rotator.5">retail</span>
+          <span data-i18n="hero.rotator.6">agencies</span>
+        </span>
+      </span>
+    </div>
+
+    <p class="hero-sub" data-i18n="hero.sub">
+      Elephant AI watches your ad channels around the clock. It catches anomalies before they cost you money, surfaces the queries that drive revenue, and turns landing-page data into a prioritised fix list.
+    </p>
+
+    <div class="hero-cta">
+      <a href="#contact" class="btn btn-butter btn-lg" data-i18n="hero.cta1">
+        Book a 20-min demo
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+      <a href="#products" class="btn btn-ghost btn-lg" data-i18n="hero.cta2">See products</a>
+    </div>
+
+    <!-- Dashboard preview -->
+    <div class="hero-visual">
+      <div class="hv-top">
+        <div class="hv-title">
+          <span class="hv-dot"></span>
+          <span data-i18n="hv.title">elephant.ai · live</span>
+        </div>
+        <div class="hv-tabs">
+          <span class="hv-tab active" data-i18n="hv.tab1">Overview</span>
+          <span class="hv-tab" data-i18n="hv.tab2">Anomalies</span>
+          <span class="hv-tab" data-i18n="hv.tab3">Queries</span>
+          <span class="hv-tab" data-i18n="hv.tab4">Pages</span>
+        </div>
+      </div>
+      <div class="hv-grid">
+        <div class="hv-card">
+          <div class="hv-label" data-i18n="hv.spend">Spend (7d)</div>
+          <div class="hv-value">€18.4k</div>
+          <div class="hv-delta up" data-i18n="hv.spend.d">↑ 12% vs prev</div>
+        </div>
+        <div class="hv-card">
+          <div class="hv-label" data-i18n="hv.cpa">Blended CPA</div>
+          <div class="hv-value">€42.10</div>
+          <div class="hv-delta down" data-i18n="hv.cpa.d">↓ 8% vs prev</div>
+        </div>
+        <div class="hv-card">
+          <div class="hv-label" data-i18n="hv.conv">Conversions</div>
+          <div class="hv-value">437</div>
+          <div class="hv-delta up" data-i18n="hv.conv.d">↑ 22% vs prev</div>
+        </div>
+        <div class="hv-card">
+          <div class="hv-label" data-i18n="hv.alerts">Alerts (24h)</div>
+          <div class="hv-value">3</div>
+          <div class="hv-delta down" data-i18n="hv.alerts.d">2 critical · 1 warn</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     INTEGRATIONS STRIP
+     ═══════════════════════════════════════════ -->
+<div class="strip">
+  <div class="wrap">
+    <div class="strip-label" data-i18n="strip.label">Connects to the tools you already use</div>
+    <div class="strip-tools">
+      <span class="tool-tag">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5zm0 7.5L4.21 5.7 12 2l7.79 3.7L12 9.5z"/><path d="M2 17l10 5 10-5"/></svg>
+        Google Ads
+      </span>
+      <span class="tool-tag">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg>
+        Meta Ads
+      </span>
+      <span class="tool-tag">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="9" y1="9" x2="9" y2="15"/><line x1="13" y1="6" x2="13" y2="15"/><line x1="17" y1="11" x2="17" y2="15"/></svg>
+        GA4
+      </span>
+      <span class="tool-tag">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"/></svg>
+        GTM
+      </span>
+      <span class="tool-tag">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        Search Console
+      </span>
+      <span class="tool-tag">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+        Slack
+      </span>
+      <span class="tool-tag">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 17 9 11 13 15 21 7"/><polyline points="14 7 21 7 21 14"/></svg>
+        Adjust
+      </span>
+      <span class="tool-tag">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21V9l9-6 9 6v12"/><path d="M9 21v-6h6v6"/></svg>
+        RTB House
+      </span>
+      <span class="tool-tag">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2" fill="currentColor"/></svg>
+        Criteo
+      </span>
+      <span class="tool-tag">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+        TikTok
+      </span>
+      <span class="tool-tag">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg>
+        Google Sheets
+      </span>
+      <span class="tool-tag">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 8l8 8M16 8l-8 8"/></svg>
+        Excel
+      </span>
+      <span class="tool-tag">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v6c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/><path d="M3 11v6c0 1.66 4.03 3 9 3s9-1.34 9-3v-6"/></svg>
+        BigQuery
+      </span>
+      <span class="tool-tag tool-more">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        <span data-i18n="strip.more">ve daha fazlası</span>
+      </span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     PROBLEM
+     ═══════════════════════════════════════════ -->
+<section class="problem">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-eyebrow" data-i18n="problem.eyebrow">Why a general-purpose AI isn't enough</span>
+      <h2 class="sec-title" data-i18n="problem.title">A chatbot answers when asked. <span class="h">Elephant watches when you don't.</span></h2>
+      <p class="sec-sub" data-i18n="problem.sub">Generic AI assistants are powerful — but they start from zero every conversation, only respond when prompted, can't run real statistics, and keep insight trapped in your chat history. Marketing data needs something purpose-built.</p>
+    </div>
+
+    <div class="problem-grid">
+      <div class="problem-card">
+        <div class="problem-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg></div>
+        <h3 class="problem-title" data-i18n="problem.1.title">Every morning, the same context dump</h3>
+        <p class="problem-desc" data-i18n="problem.1.desc">Paste yesterday's spend screenshot. Explain the campaign names. Re-upload the GA4 export. Generic AI tools start cold every single time.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+        <h3 class="problem-title" data-i18n="problem.2.title">If you don't ask, you don't know</h3>
+        <p class="problem-desc" data-i18n="problem.2.desc">A chatbot waits for your question. Anomaly Gate watches around the clock — and pings you the moment something goes sideways.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+        <h3 class="problem-title" data-i18n="problem.3.title">"Looks weird" isn't statistics</h3>
+        <p class="problem-desc" data-i18n="problem.3.desc">Eyeballing one screenshot can't compute a baseline, account for seasonality, or score an anomaly. The math runs underneath — AI just narrates the result.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <h3 class="problem-title" data-i18n="problem.4.title">The answer lives in your chat</h3>
+        <p class="problem-desc" data-i18n="problem.4.desc">You asked, you got an answer — your team didn't. Elephant alerts the right Slack channel automatically, so insight reaches the people who can fix it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     PRODUCTS — Tab switcher
+     ═══════════════════════════════════════════ -->
+<section class="products" id="products">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-eyebrow" data-i18n="prod.eyebrow">Products</span>
+      <h2 class="sec-title" data-i18n="prod.title">Three modules. <span class="h">One calm dashboard.</span></h2>
+      <p class="sec-sub" data-i18n="prod.sub">Each module works on its own. Together they answer the three questions every marketing team is constantly asking.</p>
+    </div>
+
+    <div class="prod-tabs" role="tablist">
+      <button class="prod-tab active" data-prod="ag" role="tab">
+        <span class="prod-tab-num">01</span>
+        <span data-i18n="prod.tab.ag">Anomaly Gate</span>
+      </button>
+      <button class="prod-tab" data-prod="qa" role="tab">
+        <span class="prod-tab-num">02</span>
+        <span data-i18n="prod.tab.qa">Query Analytics</span>
+      </button>
+      <button class="prod-tab" data-prod="lp" role="tab">
+        <span class="prod-tab-num">03</span>
+        <span data-i18n="prod.tab.lp">LP Report</span>
+      </button>
+    </div>
+
+    <!-- Panel: Anomaly Gate -->
+    <div class="prod-panel active" data-panel="ag">
+      <div>
+        <span class="prod-label" data-i18n="prod.ag.label">01 · Anomaly Gate</span>
+        <h3 class="prod-title" data-i18n="prod.ag.title">The smoke alarm for your ad spend.</h3>
+        <p class="prod-desc" data-i18n="prod.ag.desc">Watches every metric that matters — spend, CTR, CPA, conversion rate, revenue — across every campaign on every platform. When something deviates from its own learned baseline, you get an alert with the root cause attached.</p>
+        <ul class="prod-features">
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="prod.ag.f1"><strong>Statistical anomaly detection</strong> — not threshold rules. Learns each campaign's seasonality.</span></li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="prod.ag.f2"><strong>Root-cause attribution</strong> — every alert names the campaign, the change, and the likely "why."</span></li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="prod.ag.f3"><strong>Slack & email delivery</strong> — alerts go to the people who can fix them, with severity tags.</span></li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="prod.ag.f4"><strong>Ad-specific & general monitoring</strong> — frozen campaigns, spend spikes, tracking breaks, revenue cliffs.</span></li>
+        </ul>
+        <a href="#contact" class="prod-cta" data-i18n="prod.ag.cta">
+          See it live
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+      <div class="prod-visual">
+        <div class="pv-header">
+          <span data-i18n="prod.ag.visual">anomaly_gate · alerts</span>
+          <span class="pv-dot"></span>
+        </div>
+        <div class="alert-row crit">
+          <div>
+            <div style="margin-bottom:3px; font-weight:500;">Search · Brand_IT</div>
+            <div class="alert-meta">CPA ↑ 184% in 6h</div>
+          </div>
+          <span class="alert-tag">critical</span>
+        </div>
+        <div class="alert-row crit">
+          <div>
+            <div style="margin-bottom:3px; font-weight:500;">PMax · Q2_Acquisition</div>
+            <div class="alert-meta">conversions = 0 (24h)</div>
+          </div>
+          <span class="alert-tag">critical</span>
+        </div>
+        <div class="alert-row">
+          <div>
+            <div style="margin-bottom:3px; font-weight:500;">Meta · Retargeting_EU</div>
+            <div class="alert-meta">CTR ↓ 41% vs baseline</div>
+          </div>
+          <span class="alert-tag warn">warning</span>
+        </div>
+        <div class="alert-row">
+          <div>
+            <div style="margin-bottom:3px; font-weight:500;">GA4 stream</div>
+            <div class="alert-meta">purchase event silent 18h</div>
+          </div>
+          <span class="alert-tag warn">warning</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel: Query Analytics -->
+    <div class="prod-panel" data-panel="qa">
+      <div>
+        <span class="prod-label" data-i18n="prod.qa.label">02 · Query Analytics</span>
+        <h3 class="prod-title" data-i18n="prod.qa.title">Find the queries that print money — and the ones that bleed it.</h3>
+        <p class="prod-desc" data-i18n="prod.qa.desc">Unifies Google Ads search terms, Search Console queries, and GA4 sessions in one view. Every query is automatically classified by intent so you can see where your budget is going, and where it's earning its keep.</p>
+        <ul class="prod-features">
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="prod.qa.f1"><strong>Paid + organic unified</strong> — one table, every query, with cost, clicks, conversions and revenue.</span></li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="prod.qa.f2"><strong>AI intent classification</strong> — branded vs generic, transactional vs informational, automatically tagged.</span></li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="prod.qa.f3"><strong>Wasted-spend report</strong> — queries that took €X with zero conversions, grouped by theme.</span></li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="prod.qa.f4"><strong>Negative-keyword suggestions</strong> — exportable lists of high-cost, low-intent queries to block.</span></li>
+        </ul>
+        <a href="#contact" class="prod-cta" data-i18n="prod.qa.cta">
+          See it live
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+      <div class="prod-visual">
+        <div class="pv-header">
+          <span data-i18n="prod.qa.visual">query_analytics · last 30d</span>
+          <span class="pv-dot"></span>
+        </div>
+        <div class="query-bar">
+          <span class="query-term">"project management software"</span>
+          <span class="query-intent trans">trans</span>
+          <span class="query-spend">€480</span>
+          <span class="query-conv">28 conv</span>
+        </div>
+        <div class="query-bar">
+          <span class="query-term">"acme app login"</span>
+          <span class="query-intent brand">brand</span>
+          <span class="query-spend">€89</span>
+          <span class="query-conv">22 conv</span>
+        </div>
+        <div class="query-bar">
+          <span class="query-term">"team collaboration tool pricing"</span>
+          <span class="query-intent trans">trans</span>
+          <span class="query-spend">€312</span>
+          <span class="query-conv">14 conv</span>
+        </div>
+        <div class="query-bar">
+          <span class="query-term">"how to manage remote teams"</span>
+          <span class="query-intent info">info</span>
+          <span class="query-spend">€640</span>
+          <span class="query-conv">0 conv</span>
+        </div>
+        <div class="query-bar">
+          <span class="query-term">"free productivity template"</span>
+          <span class="query-intent info">info</span>
+          <span class="query-spend">€410</span>
+          <span class="query-conv">1 conv</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel: LP Report -->
+    <div class="prod-panel" data-panel="lp">
+      <div>
+        <span class="prod-label" data-i18n="prod.lp.label">03 · LP Report</span>
+        <h3 class="prod-title" data-i18n="prod.lp.title">Every landing page, audited honestly.</h3>
+        <p class="prod-desc" data-i18n="prod.lp.desc">Combines Core Web Vitals, conversion data, scroll depth, and heuristic UX analysis into a single score per page — plus a prioritised list of what to fix first. Stop guessing which page is the bottleneck.</p>
+        <ul class="prod-features">
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="prod.lp.f1"><strong>Per-page health score</strong> — combining performance, conversion, engagement and heuristic signals.</span></li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="prod.lp.f2"><strong>Heuristic UX audit</strong> — CTA clarity, form friction, copy readability, mobile tap-target sizing.</span></li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="prod.lp.f3"><strong>A/B test recommendations</strong> — ranked hypotheses with expected impact and effort estimates.</span></li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="prod.lp.f4"><strong>Client-ready PDF export</strong> — branded reports with executive summary and action plan.</span></li>
+        </ul>
+        <a href="#contact" class="prod-cta" data-i18n="prod.lp.cta">
+          See it live
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+      <div class="prod-visual">
+        <div class="pv-header">
+          <span data-i18n="prod.lp.visual">lp_report · /start</span>
+          <span class="pv-dot"></span>
+        </div>
+        <div class="lp-score-wrap">
+          <div class="lp-score">62</div>
+          <div class="lp-score-meta">
+            <div class="lp-score-label" data-i18n="prod.lp.health">Page health</div>
+            <div class="lp-score-delta" data-i18n="prod.lp.delta">↑ 8 pts since last week</div>
+          </div>
+        </div>
+        <div class="lp-issues">
+          <div class="lp-issue">
+            <span class="lp-issue-title">CTA below fold on mobile</span>
+            <span class="lp-issue-tag high">high</span>
+          </div>
+          <div class="lp-issue">
+            <span class="lp-issue-title">Form has 7 fields (3 unused)</span>
+            <span class="lp-issue-tag high">high</span>
+          </div>
+          <div class="lp-issue">
+            <span class="lp-issue-title">LCP 4.2s on mobile 3G</span>
+            <span class="lp-issue-tag med">medium</span>
+          </div>
+          <div class="lp-issue">
+            <span class="lp-issue-title">Hero copy reading age 16+</span>
+            <span class="lp-issue-tag med">medium</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     HOW IT WORKS
+     ═══════════════════════════════════════════ -->
+<section id="how">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-eyebrow" data-i18n="how.eyebrow">How it works</span>
+      <h2 class="sec-title" data-i18n="how.title">Three steps. <span class="h">No spreadsheet archaeology.</span></h2>
+      <p class="sec-sub" data-i18n="how.sub">Elephant AI connects to your accounts in 3 days, learns what "normal" looks like, then quietly works in the background — only speaking up when there's something you actually need to know.</p>
+    </div>
+
+    <div class="steps">
+      <div class="step-card">
+        <span class="step-num">01</span>
+        <div class="step-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+        </div>
+        <h3 class="step-title" data-i18n="how.s1.title">Connect</h3>
+        <p class="step-desc" data-i18n="how.s1.desc">Connect Google Ads, Meta, GA4, GTM and Search Console with OAuth. No engineering required. Elephant reads — it doesn't change anything in your accounts.</p>
+      </div>
+      <div class="step-card">
+        <span class="step-num">02</span>
+        <div class="step-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
+        </div>
+        <h3 class="step-title" data-i18n="how.s2.title">Learn</h3>
+        <p class="step-desc" data-i18n="how.s2.desc">Over the next 3 days the system understands your baselines — your seasonality, your traffic patterns, your campaign-specific norms. Noise vs signal for your account, not a generic industry average.</p>
+      </div>
+      <div class="step-card">
+        <span class="step-num">03</span>
+        <div class="step-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <h3 class="step-title" data-i18n="how.s3.title">Act</h3>
+        <p class="step-desc" data-i18n="how.s3.desc">Every alert, insight and recommended action lives in your Elephant dashboard — root cause, affected campaigns, suggested fix, all in one place. Spend ten minutes there a day and you'll know your accounts deeper than any monthly report.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     AUDIENCE
+     ═══════════════════════════════════════════ -->
+<section class="audience">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-eyebrow" data-i18n="aud.eyebrow">Who it's for</span>
+      <h2 class="sec-title" data-i18n="aud.title">Two ways of working. <span class="h">One product.</span></h2>
+      <p class="sec-sub" data-i18n="aud.sub">Whether you run paid marketing for one brand or twenty, Elephant adapts to how you actually work — single-brand depth or multi-client breadth, your call.</p>
+    </div>
+
+    <div class="audience-grid">
+      <div class="aud-card">
+        <span class="aud-tag" data-i18n="aud.primary.tag">For agencies</span>
+        <h3 class="aud-title" data-i18n="aud.primary.title">Multi-client breadth</h3>
+        <p class="aud-desc" data-i18n="aud.primary.desc">You run audits, write monthly reports, fight fires across a dozen accounts. Elephant turns those repetitive tasks into one-click outputs — so your team can spend more time on strategy and less on screenshots.</p>
+        <ul class="aud-points">
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="aud.primary.p1">Multi-client dashboard with per-client roll-ups</span></li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="aud.primary.p2">White-label PDF reports with your branding</span></li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="aud.primary.p3">Audit findings split into internal vs client-facing language</span></li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="aud.primary.p4">Slack alerts routed per client channel</span></li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="aud.primary.p5">Save 10–15 hours per client per month</span></li>
+        </ul>
+      </div>
+      <div class="aud-card aud-card-alt">
+        <span class="aud-tag" data-i18n="aud.team.tag">For in-house teams</span>
+        <h3 class="aud-title" data-i18n="aud.team.title">Single-brand depth</h3>
+        <p class="aud-desc" data-i18n="aud.team.desc">E-commerce, SaaS, lead-gen — if you own paid marketing for a single brand and you're tired of explaining last week's spend spike at every standup, Elephant gives you a quiet, watchful second pair of eyes.</p>
+        <ul class="aud-points">
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="aud.team.p1">Single-brand focus, deeper customisation per campaign</span></li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="aud.team.p2">Direct Slack integration to your team channels</span></li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="aud.team.p3">Weekly digest emails for stakeholders</span></li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="aud.team.p4">Role-based access for marketing, finance, and exec</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     PRICING
+     ═══════════════════════════════════════════ -->
+<section id="pricing">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-eyebrow" data-i18n="price.eyebrow">Pricing</span>
+      <h2 class="sec-title" data-i18n="price.title">Pricing built around <span class="h">your setup.</span></h2>
+      <p class="sec-sub" data-i18n="price.sub">Every account is different — number of clients, ad spend, integrations, reporting needs. We'd rather talk for 20 minutes and quote you fairly than push you into a tier that doesn't fit.</p>
+    </div>
+
+    <div class="price-single-wrap">
+      <div class="price-single">
+        <div class="price-single-inner">
+          <span class="price-badge-static" data-i18n="price.single.badge">Custom pricing</span>
+          <div class="price-single-amount" data-i18n="price.single.amount">Let's talk</div>
+          <p class="price-single-desc" data-i18n="price.single.desc">A 20-minute demo, a look at your accounts, a fair quote tailored to what you actually need. No tiers to outgrow, no features locked behind your usage.</p>
+
+          <ul class="price-single-features">
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="price.single.f1">All three modules included — Anomaly Gate, Query Analytics, LP Report</span></li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="price.single.f2">Scales from a single brand to multi-client agency setups</span></li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="price.single.f3">White-label reports & Slack integration on every plan</span></li>
+            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span data-i18n="price.single.f4">Onboarding & dedicated support throughout</span></li>
+          </ul>
+
+          <div class="price-single-cta">
+            <a href="#contact" class="btn btn-butter btn-lg" data-i18n="price.single.cta">
+              Book a 20-min demo
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     TRUST / SECURITY
+     ═══════════════════════════════════════════ -->
+<section class="trust">
+  <div class="wrap">
+    <div class="trust-grid">
+      <div class="trust-icon-wrap">
+        <svg class="trust-shield" viewBox="0 0 200 200" fill="none">
+          <path d="M100 20L40 45v55c0 33 25 65 60 80 35-15 60-47 60-80V45L100 20z" fill="var(--butter-300)" stroke="var(--butter-600)" stroke-width="2"/>
+          <path d="M75 100l18 18 35-40" stroke="var(--forest-800)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </svg>
+      </div>
+      <div>
+        <span class="sec-eyebrow" data-i18n="trust.eyebrow">Security & compliance</span>
+        <h2 class="sec-title" data-i18n="trust.title">Your data, <span class="h">protected at every layer.</span></h2>
+        <p class="sec-sub" style="margin: 0;" data-i18n="trust.sub">Bank-grade encryption, EU data residency, GDPR-compliant by design. We're read-only by default — Elephant never makes changes to your ad accounts.</p>
+
+        <div class="trust-badges">
+          <div class="trust-badge">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <div>
+              <div class="trust-badge-name" data-i18n="trust.b1.n">GDPR compliant</div>
+              <div class="trust-badge-desc" data-i18n="trust.b1.d">Data processing agreement</div>
+            </div>
+          </div>
+          <div class="trust-badge">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <div>
+              <div class="trust-badge-name" data-i18n="trust.b2.n">256-bit SSL</div>
+              <div class="trust-badge-desc" data-i18n="trust.b2.d">End-to-end encryption</div>
+            </div>
+          </div>
+          <div class="trust-badge">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+            <div>
+              <div class="trust-badge-name" data-i18n="trust.b3.n">EU-hosted</div>
+              <div class="trust-badge-desc" data-i18n="trust.b3.d">EU data centres</div>
+            </div>
+          </div>
+          <div class="trust-badge">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <div>
+              <div class="trust-badge-name" data-i18n="trust.b4.n">Read-only</div>
+              <div class="trust-badge-desc" data-i18n="trust.b4.d">No write access</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     FAQ
+     ═══════════════════════════════════════════ -->
+<section id="faq">
+  <div class="wrap">
+    <div class="faq-wrap">
+      <div class="sec-head">
+        <span class="sec-eyebrow" data-i18n="faq.eyebrow">FAQ</span>
+        <h2 class="sec-title" data-i18n="faq.title">Common <span class="h">questions</span></h2>
+      </div>
+
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-q">
+            <span data-i18n="faq.q1">How long does setup take?</span>
+            <span class="faq-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+          </button>
+          <div class="faq-a"><p data-i18n="faq.a1">OAuth connection is quick. Within 3 days Elephant has learned your baselines and starts surfacing the alerts that matter. No engineering work required on your end — it's all OAuth.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">
+            <span data-i18n="faq.q2">Does Elephant change anything in our ad accounts?</span>
+            <span class="faq-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+          </button>
+          <div class="faq-a"><p data-i18n="faq.a2">No. Elephant is read-only by default. We surface insights and recommendations, but every action — pausing a campaign, adding a negative keyword, fixing a tag — is taken by you. A smart second opinion, not an autopilot.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">
+            <span data-i18n="faq.q3">How is this different from Looker Studio or another BI tool?</span>
+            <span class="faq-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+          </button>
+          <div class="faq-a"><p data-i18n="faq.a3">BI tools show you data. Elephant tells you what to do about it. Looker Studio is a beautiful dashboard you still have to interpret. Elephant interprets first, then surfaces — only when there's something worth surfacing. They're complementary, not competing.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">
+            <span data-i18n="faq.q4">Where is our data stored? Is it GDPR-compliant?</span>
+            <span class="faq-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+          </button>
+          <div class="faq-a"><p data-i18n="faq.a4">All data is processed and stored in EU data centres. We're GDPR-compliant by design — a DPA is provided on signup, and we never share or sell client data. Custom data residency is available on request.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">
+            <span data-i18n="faq.q5">What happens if we cancel?</span>
+            <span class="faq-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+          </button>
+          <div class="faq-a"><p data-i18n="faq.a5">You can cancel at any time from your dashboard. Your data stays accessible for 30 days so you can export everything, then it's deleted permanently. No lock-in, no penalty.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">
+            <span data-i18n="faq.q6">Can we white-label reports for our clients?</span>
+            <span class="faq-toggle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+          </button>
+          <div class="faq-a"><p data-i18n="faq.a6">Yes — white-label PDF reports come with every setup, with your agency logo, colours, and footer. Reports automatically separate internal-technical findings from client-facing language.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     CONTACT
+     ═══════════════════════════════════════════ -->
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="contact-grid">
+      <div>
+        <span class="sec-eyebrow" style="background: rgba(245,224,122,0.15); color: var(--butter-300);" data-i18n="contact.eyebrow">Get in touch</span>
+        <h2 class="contact-title" data-i18n="contact.title">Let's see if Elephant fits <span class="h">your stack.</span></h2>
+        <p class="contact-sub" data-i18n="contact.sub">Book a 20-minute demo and we'll show you Elephant running on a real account — yours, if you'd like. No slide decks, no high-pressure sales pitch. Just the product.</p>
+
+        <div class="contact-channels">
+          <a href="mailto:elephantaistudio@gmail.com" class="channel">
+            <div class="channel-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+            <div>
+              <div class="channel-label" data-i18n="contact.email">Email</div>
+              <div class="channel-value">elephantaistudio@gmail.com</div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <form id="demo-form" class="contact-form" novalidate>
+        <div class="form-row">
+          <label for="cname" data-i18n="form.name">Your name</label>
+          <input id="cname" type="text" required placeholder="Your full name" />
+        </div>
+        <div class="form-row">
+          <label for="cemail" data-i18n="form.email">Work email</label>
+          <input id="cemail" type="email" required placeholder="you@company.com" />
+        </div>
+        <div class="form-row">
+          <label for="ccompany" data-i18n="form.company">Company</label>
+          <input id="ccompany" type="text" required placeholder="Your agency or company" />
+        </div>
+        <div class="form-row">
+          <label for="crole" data-i18n="form.role">I am a…</label>
+          <select id="crole">
+            <option data-i18n="form.r1">Agency owner / lead</option>
+            <option data-i18n="form.r2">In-house marketing lead</option>
+            <option data-i18n="form.r3">Performance specialist</option>
+            <option data-i18n="form.r4">Other</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label for="cmsg" data-i18n="form.msg">Anything we should know? (optional)</label>
+          <textarea id="cmsg" placeholder="e.g. We manage 8 client accounts across multiple markets…"></textarea>
+        </div>
+
+        <div class="form-error" id="form-error" data-i18n="form.error" style="display: none;">Please fill in all required fields.</div>
+
+        <button type="submit" class="btn btn-butter btn-lg" style="width: 100%; justify-content: center;" data-i18n="form.cta">
+          Request a demo
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+
+        <div class="form-success" id="form-success" style="display: none;">
+          <div class="form-success-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <h4 class="form-success-title" data-i18n="form.success.title">Thanks for reaching out</h4>
+          <p class="form-success-msg" data-i18n="form.success.msg">We'll get back to you within 24 hours.</p>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     FOOTER
+     ═══════════════════════════════════════════ -->
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <a href="#" class="logo">
+          <span class="logo-mark">e</span>
+          Elephant AI
+        </a>
+        <p class="foot-tag" data-i18n="footer.tag">The memory layer for marketing data. Quietly watching, surfacing only what matters.</p>
+      </div>
+      <div class="foot-col">
+        <h5 data-i18n="footer.product">Product</h5>
+        <ul>
+          <li><a href="#products" data-i18n="footer.ag">Anomaly Gate</a></li>
+          <li><a href="#products" data-i18n="footer.qa">Query Analytics</a></li>
+          <li><a href="#products" data-i18n="footer.lp">LP Report</a></li>
+          <li><a href="#pricing" data-i18n="footer.pricing">Pricing</a></li>
+          <li><a href="#" data-i18n="footer.changelog">Changelog</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h5 data-i18n="footer.resources">Resources</h5>
+        <ul>
+          <li><a href="#" data-i18n="footer.docs">Documentation</a></li>
+          <li><a href="#" data-i18n="footer.blog">Blog</a></li>
+          <li><a href="#" data-i18n="footer.guides">Guides</a></li>
+          <li><a href="#" data-i18n="footer.api">API reference</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h5 data-i18n="footer.company">Company</h5>
+        <ul>
+          <li><a href="#" data-i18n="footer.about">About</a></li>
+          <li><a href="#contact" data-i18n="footer.contact">Contact</a></li>
+          <li><a href="#" data-i18n="footer.privacy">Privacy</a></li>
+          <li><a href="#" data-i18n="footer.terms">Terms</a></li>
+          <li><a href="#" data-i18n="footer.dpa">DPA</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bot">
+      <div data-i18n="footer.copy">© 2026 Elephant AI. All rights reserved.</div>
+      <div data-i18n="footer.status">All systems operational · v0.4</div>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════════════════════════════════════════
+     SCRIPTS
+     ═══════════════════════════════════════════ -->
+<script>
+  /* ───── i18n ───── */
+  const i18n = {
+    en: {
+      "nav.products": "Products", "nav.how": "How it works", "nav.pricing": "Pricing", "nav.faq": "FAQ", "nav.contact": "Contact", "nav.cta": "Book a demo",
+      "hero.pill.tag": "NEW", "hero.pill.text": "AI-native marketing intelligence platform",
+      "hero.title": "Always-on marketing intelligence",
+      "hero.rotator.prefix": "for",
+      "hero.rotator.1": "agencies", "hero.rotator.2": "e-commerce", "hero.rotator.3": "SaaS", "hero.rotator.4": "lead-gen", "hero.rotator.5": "retail", "hero.rotator.6": "agencies",
+      "hero.sub": "Elephant AI watches your ad channels around the clock. It catches anomalies before they cost you money, surfaces the queries that drive revenue, and turns landing-page data into a prioritised fix list.",
+      "hero.cta1": "Book a 20-min demo", "hero.cta2": "See products",
+      "hv.title": "elephant.ai · live", "hv.tab1": "Overview", "hv.tab2": "Anomalies", "hv.tab3": "Queries", "hv.tab4": "Pages",
+      "hv.spend": "Spend (7d)", "hv.spend.d": "↑ 12% vs prev",
+      "hv.cpa": "Blended CPA", "hv.cpa.d": "↓ 8% vs prev",
+      "hv.conv": "Conversions", "hv.conv.d": "↑ 22% vs prev",
+      "hv.alerts": "Alerts (24h)", "hv.alerts.d": "2 critical · 1 warn",
+      "strip.label": "Connects to the tools you already use",
+      "strip.more": "and more",
+      "problem.eyebrow": "Why a general-purpose AI isn't enough",
+      "problem.title": "A chatbot answers when asked. <span class=\"h\">Elephant watches when you don't.</span>",
+      "problem.sub": "Generic AI assistants are powerful — but they start from zero every conversation, only respond when prompted, can't run real statistics, and keep insight trapped in your chat history. Marketing data needs something purpose-built.",
+      "problem.1.title": "Every morning, the same context dump", "problem.1.desc": "Paste yesterday's spend screenshot. Explain the campaign names. Re-upload the GA4 export. Generic AI tools start cold every single time.",
+      "problem.2.title": "If you don't ask, you don't know", "problem.2.desc": "A chatbot waits for your question. Anomaly Gate watches around the clock — and pings you the moment something goes sideways.",
+      "problem.3.title": "\"Looks weird\" isn't statistics", "problem.3.desc": "Eyeballing one screenshot can't compute a baseline, account for seasonality, or score an anomaly. The math runs underneath — AI just narrates the result.",
+      "problem.4.title": "The answer lives in your chat", "problem.4.desc": "You asked, you got an answer — your team didn't. Elephant alerts the right Slack channel automatically, so insight reaches the people who can fix it.",
+      "prod.eyebrow": "Products",
+      "prod.title": "Three modules. <span class=\"h\">One calm dashboard.</span>",
+      "prod.sub": "Each module works on its own. Together they answer the three questions every marketing team is constantly asking.",
+      "prod.tab.ag": "Anomaly Gate", "prod.tab.qa": "Query Analytics", "prod.tab.lp": "LP Report",
+      "prod.ag.label": "01 · Anomaly Gate",
+      "prod.ag.title": "The smoke alarm for your ad spend.",
+      "prod.ag.desc": "Watches every metric that matters — spend, CTR, CPA, conversion rate, revenue — across every campaign on every platform. When something deviates from its own learned baseline, you get an alert with the root cause attached.",
+      "prod.ag.f1": "<strong>Statistical anomaly detection</strong> — not threshold rules. Learns each campaign's seasonality.",
+      "prod.ag.f2": "<strong>Root-cause attribution</strong> — every alert names the campaign, the change, and the likely \"why.\"",
+      "prod.ag.f3": "<strong>Slack & email delivery</strong> — alerts go to the people who can fix them, with severity tags.",
+      "prod.ag.f4": "<strong>Ad-specific & general monitoring</strong> — frozen campaigns, spend spikes, tracking breaks, revenue cliffs.",
+      "prod.ag.cta": "See it live", "prod.ag.visual": "anomaly_gate · alerts",
+      "prod.qa.label": "02 · Query Analytics",
+      "prod.qa.title": "Find the queries that print money — and the ones that bleed it.",
+      "prod.qa.desc": "Unifies Google Ads search terms, Search Console queries, and GA4 sessions in one view. Every query is automatically classified by intent so you can see where your budget is going, and where it's earning its keep.",
+      "prod.qa.f1": "<strong>Paid + organic unified</strong> — one table, every query, with cost, clicks, conversions and revenue.",
+      "prod.qa.f2": "<strong>AI intent classification</strong> — branded vs generic, transactional vs informational, automatically tagged.",
+      "prod.qa.f3": "<strong>Wasted-spend report</strong> — queries that took €X with zero conversions, grouped by theme.",
+      "prod.qa.f4": "<strong>Negative-keyword suggestions</strong> — exportable lists of high-cost, low-intent queries to block.",
+      "prod.qa.cta": "See it live", "prod.qa.visual": "query_analytics · last 30d",
+      "prod.lp.label": "03 · LP Report",
+      "prod.lp.title": "Every landing page, audited honestly.",
+      "prod.lp.desc": "Combines Core Web Vitals, conversion data, scroll depth, and heuristic UX analysis into a single score per page — plus a prioritised list of what to fix first. Stop guessing which page is the bottleneck.",
+      "prod.lp.f1": "<strong>Per-page health score</strong> — combining performance, conversion, engagement and heuristic signals.",
+      "prod.lp.f2": "<strong>Heuristic UX audit</strong> — CTA clarity, form friction, copy readability, mobile tap-target sizing.",
+      "prod.lp.f3": "<strong>A/B test recommendations</strong> — ranked hypotheses with expected impact and effort estimates.",
+      "prod.lp.f4": "<strong>Client-ready PDF export</strong> — branded reports with executive summary and action plan.",
+      "prod.lp.cta": "See it live", "prod.lp.visual": "lp_report · /start", "prod.lp.health": "Page health", "prod.lp.delta": "↑ 8 pts since last week",
+      "how.eyebrow": "How it works",
+      "how.title": "Three steps. <span class=\"h\">No spreadsheet archaeology.</span>",
+      "how.sub": "Elephant AI connects to your accounts in 3 days, learns what \"normal\" looks like, then quietly works in the background — only speaking up when there's something you actually need to know.",
+      "how.s1.title": "Connect", "how.s1.desc": "Connect Google Ads, Meta, GA4, GTM and Search Console with OAuth. No engineering required. Elephant reads — it doesn't change anything in your accounts.",
+      "how.s2.title": "Learn", "how.s2.desc": "Over the next 3 days the system understands your baselines — your seasonality, your traffic patterns, your campaign-specific norms. Noise vs signal for your account, not a generic industry average.",
+      "how.s3.title": "Act", "how.s3.desc": "Every alert, insight and recommended action lives in your Elephant dashboard — root cause, affected campaigns, suggested fix, all in one place. Spend ten minutes there a day and you'll know your accounts deeper than any monthly report.",
+      "aud.eyebrow": "Who it's for",
+      "aud.title": "Two ways of working. <span class=\"h\">One product.</span>",
+      "aud.sub": "Whether you run paid marketing for one brand or twenty, Elephant adapts to how you actually work — single-brand depth or multi-client breadth, your call.",
+      "aud.primary.tag": "For agencies", "aud.primary.title": "Multi-client breadth",
+      "aud.primary.desc": "You run audits, write monthly reports, fight fires across a dozen accounts. Elephant turns those repetitive tasks into one-click outputs — so your team can spend more time on strategy and less on screenshots.",
+      "aud.primary.p1": "Multi-client dashboard with per-client roll-ups",
+      "aud.primary.p2": "White-label PDF reports with your branding",
+      "aud.primary.p3": "Audit findings split into internal vs client-facing language",
+      "aud.primary.p4": "Slack alerts routed per client channel",
+      "aud.primary.p5": "Save 10–15 hours per client per month",
+      "aud.team.tag": "For in-house teams", "aud.team.title": "Single-brand depth",
+      "aud.team.desc": "E-commerce, SaaS, lead-gen — if you own paid marketing for a single brand and you're tired of explaining last week's spend spike at every standup, Elephant gives you a quiet, watchful second pair of eyes.",
+      "aud.team.p1": "Single-brand focus, deeper customisation per campaign",
+      "aud.team.p2": "Direct Slack integration to your team channels",
+      "aud.team.p3": "Weekly digest emails for stakeholders",
+      "aud.team.p4": "Role-based access for marketing, finance, and exec",
+      "price.eyebrow": "Pricing",
+      "price.title": "Pricing built around <span class=\"h\">your setup.</span>",
+      "price.sub": "Every account is different — number of clients, ad spend, integrations, reporting needs. We'd rather talk for 20 minutes and quote you fairly than push you into a tier that doesn't fit.",
+      "price.single.badge": "Custom pricing",
+      "price.single.amount": "Let's talk",
+      "price.single.desc": "A 20-minute demo, a look at your accounts, a fair quote tailored to what you actually need. No tiers to outgrow, no features locked behind your usage.",
+      "price.single.f1": "All three modules included — Anomaly Gate, Query Analytics, LP Report",
+      "price.single.f2": "Scales from a single brand to multi-client agency setups",
+      "price.single.f3": "White-label reports & Slack integration on every plan",
+      "price.single.f4": "Onboarding & dedicated support throughout",
+      "price.single.cta": "Book a 20-min demo",
+      "trust.eyebrow": "Security & compliance",
+      "trust.title": "Your data, <span class=\"h\">protected at every layer.</span>",
+      "trust.sub": "Bank-grade encryption, EU data residency, GDPR-compliant by design. We're read-only by default — Elephant never makes changes to your ad accounts.",
+      "trust.b1.n": "GDPR compliant", "trust.b1.d": "Data processing agreement",
+      "trust.b2.n": "256-bit SSL", "trust.b2.d": "End-to-end encryption",
+      "trust.b3.n": "EU-hosted", "trust.b3.d": "EU data centres",
+      "trust.b4.n": "Read-only", "trust.b4.d": "No write access",
+      "faq.eyebrow": "FAQ", "faq.title": "Common <span class=\"h\">questions</span>",
+      "faq.q1": "How long does setup take?",
+      "faq.a1": "OAuth connection is quick. Within 3 days Elephant has learned your baselines and starts surfacing the alerts that matter. No engineering work required on your end — it's all OAuth.",
+      "faq.q2": "Does Elephant change anything in our ad accounts?",
+      "faq.a2": "No. Elephant is read-only by default. We surface insights and recommendations, but every action — pausing a campaign, adding a negative keyword, fixing a tag — is taken by you. A smart second opinion, not an autopilot.",
+      "faq.q3": "How is this different from Looker Studio or another BI tool?",
+      "faq.a3": "BI tools show you data. Elephant tells you what to do about it. Looker Studio is a beautiful dashboard you still have to interpret. Elephant interprets first, then surfaces — only when there's something worth surfacing. They're complementary, not competing.",
+      "faq.q4": "Where is our data stored? Is it GDPR-compliant?",
+      "faq.a4": "All data is processed and stored in EU data centres. We're GDPR-compliant by design — a DPA is provided on signup, and we never share or sell client data. Custom data residency is available on request.",
+      "faq.q5": "What happens if we cancel?",
+      "faq.a5": "You can cancel at any time from your dashboard. Your data stays accessible for 30 days so you can export everything, then it's deleted permanently. No lock-in, no penalty.",
+      "faq.q6": "Can we white-label reports for our clients?",
+      "faq.a6": "Yes — white-label PDF reports come with every setup, with your agency logo, colours, and footer. Reports automatically separate internal-technical findings from client-facing language.",
+      "contact.eyebrow": "Get in touch",
+      "contact.title": "Let's see if Elephant fits <span class=\"h\">your stack.</span>",
+      "contact.sub": "Book a 20-minute demo and we'll show you Elephant running on a real account — yours, if you'd like. No slide decks, no high-pressure sales pitch. Just the product.",
+      "contact.email": "Email",
+      "form.name": "Your name", "form.email": "Work email", "form.company": "Company", "form.role": "I am a…",
+      "form.r1": "Agency owner / lead", "form.r2": "In-house marketing lead", "form.r3": "Performance specialist", "form.r4": "Other",
+      "form.msg": "Anything we should know? (optional)", "form.cta": "Request a demo",
+      "form.error": "Please fill in all required fields.",
+      "form.success.title": "Thanks for reaching out",
+      "form.success.msg": "We'll get back to you within 24 hours.",
+      "footer.tag": "The memory layer for marketing data. Quietly watching, surfacing only what matters.",
+      "footer.product": "Product", "footer.ag": "Anomaly Gate", "footer.qa": "Query Analytics", "footer.lp": "LP Report", "footer.pricing": "Pricing", "footer.changelog": "Changelog",
+      "footer.resources": "Resources", "footer.docs": "Documentation", "footer.blog": "Blog", "footer.guides": "Guides", "footer.api": "API reference",
+      "footer.company": "Company", "footer.about": "About", "footer.contact": "Contact", "footer.privacy": "Privacy", "footer.terms": "Terms", "footer.dpa": "DPA",
+      "footer.copy": "© 2026 Elephant AI. All rights reserved.", "footer.status": "All systems operational · v0.4"
+    },
+    tr: {
+      "nav.products": "Ürünler", "nav.how": "Nasıl çalışır", "nav.pricing": "Fiyatlar", "nav.faq": "S.S.S.", "nav.contact": "İletişim", "nav.cta": "Demo iste",
+      "hero.pill.tag": "YENİ", "hero.pill.text": "AI yerel pazarlama zekâsı platformu",
+      "hero.title": "Hep açık pazarlama zekâsı",
+      "hero.rotator.prefix": "—",
+      "hero.rotator.1": "ajanslar", "hero.rotator.2": "e-ticaret", "hero.rotator.3": "SaaS", "hero.rotator.4": "lead-gen", "hero.rotator.5": "perakende", "hero.rotator.6": "ajanslar",
+      "hero.sub": "Elephant AI; reklam kanallarınızı 7/24 izler. Anomalileri size para yakmadan yakalar, gelir getiren sorguları gün yüzüne çıkarır ve landing page verilerini önceliklendirilmiş aksiyon listesine dönüştürür.",
+      "hero.cta1": "20 dk demo planla", "hero.cta2": "Ürünleri gör",
+      "hv.title": "elephant.ai · canlı", "hv.tab1": "Genel", "hv.tab2": "Anomaliler", "hv.tab3": "Sorgular", "hv.tab4": "Sayfalar",
+      "hv.spend": "Harcama (7g)", "hv.spend.d": "↑ %12 vs önceki",
+      "hv.cpa": "Ort. CPA", "hv.cpa.d": "↓ %8 vs önceki",
+      "hv.conv": "Dönüşüm", "hv.conv.d": "↑ %22 vs önceki",
+      "hv.alerts": "Alertler (24s)", "hv.alerts.d": "2 kritik · 1 uyarı",
+      "strip.label": "Zaten kullandığınız araçlarla çalışır",
+      "strip.more": "ve daha fazlası",
+      "problem.eyebrow": "Genel AI araçları neden yetmiyor",
+      "problem.title": "Chatbot sorduğunuzda cevap verir. <span class=\"h\">Elephant siz sormasanız da izler.</span>",
+      "problem.sub": "Genel AI asistanları güçlüdür — ama her konuşmaya sıfırdan başlar, sadece sorduğunuzda cevap verir, gerçek istatistik üretemez ve insight'ı sohbet geçmişinizde hapseder. Pazarlama verisinin amaca özel bir çözüme ihtiyacı var.",
+      "problem.1.title": "Her sabah aynı context döküntüsü", "problem.1.desc": "Dünkü harcama ekran görüntüsünü yapıştır. Kampanya isimlerini açıkla. GA4 export'unu tekrar yükle. Genel AI araçları her seferinde sıfırdan başlar.",
+      "problem.2.title": "Sormazsanız bilmezsiniz", "problem.2.desc": "Chatbot sizin sorunuzu bekler. Anomaly Gate 7/24 izler — bir şey yamulduğu an size haber verir.",
+      "problem.3.title": "\"Garip görünüyor\" istatistik değildir", "problem.3.desc": "Tek ekran görüntüsüne göz atmakla baseline hesaplanmaz, sezonsallık hesaba katılmaz, anomali skorlanmaz. Matematik arkada çalışır — AI sadece sonucu anlatır.",
+      "problem.4.title": "Cevap chat'inizde kalır", "problem.4.desc": "Siz sordunuz, cevap aldınız — ama ekibiniz almadı. Elephant doğru Slack kanalına otomatik alert gönderir; insight düzeltebilecek kişilere ulaşır.",
+      "prod.eyebrow": "Ürünler",
+      "prod.title": "Üç modül. <span class=\"h\">Tek sakin dashboard.</span>",
+      "prod.sub": "Her modül tek başına çalışır. Birlikte ise her pazarlama ekibinin sürekli sorduğu üç soruyu cevaplar.",
+      "prod.tab.ag": "Anomaly Gate", "prod.tab.qa": "Query Analytics", "prod.tab.lp": "LP Report",
+      "prod.ag.label": "01 · Anomaly Gate",
+      "prod.ag.title": "Reklam harcamanız için duman dedektörü.",
+      "prod.ag.desc": "Önemli her metriği — harcama, CTR, CPA, dönüşüm oranı, gelir — her kampanyada, her platformda izler. Bir şey kendi öğrenilmiş baseline'ından saptığında, kök neden ekli olarak alert alırsınız.",
+      "prod.ag.f1": "<strong>İstatistiksel anomali tespiti</strong> — eşik kuralı değil. Her kampanyanın kendi sezonsallığını öğrenir.",
+      "prod.ag.f2": "<strong>Kök neden atfı</strong> — her alert kampanyayı, değişikliği ve olası \"neden\"i söyler.",
+      "prod.ag.f3": "<strong>Slack & e-posta teslimi</strong> — alertler düzeltebilecek kişilere, önem etiketleriyle gider.",
+      "prod.ag.f4": "<strong>Reklam-spesifik ve genel izleme</strong> — donmuş kampanyalar, harcama spike'ları, tracking kırılmaları, gelir uçurumları.",
+      "prod.ag.cta": "Canlı gör", "prod.ag.visual": "anomaly_gate · alertler",
+      "prod.qa.label": "02 · Query Analytics",
+      "prod.qa.title": "Size para basan sorguları ve sizi soyanları bulun.",
+      "prod.qa.desc": "Google Ads arama terimlerini, Search Console sorgularını ve GA4 oturumlarını tek görünümde birleştirir. Her sorgu niyete göre otomatik sınıflandırılır — böylece bütçenizin nereye gittiğini ve nerede kazandığını görürsünüz.",
+      "prod.qa.f1": "<strong>Paid + organic birleşik</strong> — tek tabloda her sorgu, yanyana cost, click, conversion, revenue.",
+      "prod.qa.f2": "<strong>AI niyet sınıflandırma</strong> — markalı vs jenerik, transactional vs informational, otomatik etiketlenir.",
+      "prod.qa.f3": "<strong>Boşa harcanan bütçe raporu</strong> — sıfır dönüşümlü ama €X alan sorgular, temaya göre gruplanır.",
+      "prod.qa.f4": "<strong>Negatif kelime önerileri</strong> — engellenecek yüksek maliyet-düşük niyet sorgu listeleri.",
+      "prod.qa.cta": "Canlı gör", "prod.qa.visual": "query_analytics · son 30g",
+      "prod.lp.label": "03 · LP Report",
+      "prod.lp.title": "Her landing page, dürüstçe denetlenmiş.",
+      "prod.lp.desc": "Core Web Vitals, dönüşüm verisi, scroll depth ve heuristik UX analizini her sayfa için tek skorda birleştirir — artı önce neyin düzeltileceğine dair önceliklendirilmiş liste. Hangi sayfanın bottleneck olduğunu tahmin etmeyi bırakın.",
+      "prod.lp.f1": "<strong>Sayfa başına sağlık skoru</strong> — performans, dönüşüm, engagement ve heuristik sinyalleri birleştirir.",
+      "prod.lp.f2": "<strong>Heuristik UX denetimi</strong> — CTA netliği, form sürtüşmesi, copy okunabilirliği, mobil tap-target boyutu.",
+      "prod.lp.f3": "<strong>A/B test önerileri</strong> — beklenen etki ve eforla sıralanmış hipotezler.",
+      "prod.lp.f4": "<strong>Müşteriye hazır PDF export</strong> — yönetici özeti ve aksiyon planıyla markalı raporlar.",
+      "prod.lp.cta": "Canlı gör", "prod.lp.visual": "lp_report · /start", "prod.lp.health": "Sayfa sağlığı", "prod.lp.delta": "↑ 8 puan geçen haftadan",
+      "how.eyebrow": "Nasıl çalışır",
+      "how.title": "Üç adım. <span class=\"h\">Tablo karıştırmak yok.</span>",
+      "how.sub": "Elephant AI hesaplarınıza 3 gün içinde bağlanır, \"normalin\" ne olduğunu öğrenir, sonra arka planda sessizce çalışır — sadece gerçekten bilmeniz gerektiğinde konuşur.",
+      "how.s1.title": "Bağlan", "how.s1.desc": "Google Ads, Meta, GA4, GTM ve Search Console'a OAuth ile bağlanın. Mühendislik gerekmez. Elephant okur — hesaplarınızda hiçbir şeyi değiştirmez.",
+      "how.s2.title": "Öğren", "how.s2.desc": "Sistem ilk 3 gün boyunca baseline'larınızı öğrenir — sezonsallığınız, trafik kalıplarınız, kampanya bazlı normlarınız. Sektör ortalaması değil, sizin hesabınız için gürültü vs sinyal.",
+      "how.s3.title": "Aksiyon al", "how.s3.desc": "Her alert, insight ve önerilen aksiyon Elephant dashboard'unuzda yaşar — kök neden, etkilenen kampanyalar, önerilen düzeltme, hepsi tek bir yerde. Günde on dakika geçirin, hesaplarınızı herhangi bir aylık rapordan daha derin tanırsınız.",
+      "aud.eyebrow": "Kimin için",
+      "aud.title": "İki farklı çalışma şekli. <span class=\"h\">Tek ürün.</span>",
+      "aud.sub": "Tek bir marka için mi yoksa yirmi müşteri için mi paid marketing yönetiyorsunuz fark etmez — Elephant nasıl çalıştığınıza uyum sağlar; tek marka derinliği ya da çoklu müşteri genişliği, seçim sizin.",
+      "aud.primary.tag": "Ajanslar için", "aud.primary.title": "Çoklu müşteri genişliği",
+      "aud.primary.desc": "Audit'ler yapıyor, aylık raporlar yazıyor, onlarca hesapta yangın söndürüyorsunuz. Elephant bu tekrarlayan işleri tek tıklık çıktılara dönüştürür — ekibiniz strateji için daha fazla, ekran görüntüsü için daha az zaman harcar.",
+      "aud.primary.p1": "Müşteri bazlı roll-up'larla çoklu müşteri dashboard'u",
+      "aud.primary.p2": "Sizin markanızla white-label PDF raporlar",
+      "aud.primary.p3": "Audit bulguları: iç dil vs müşteri dili ayrımı",
+      "aud.primary.p4": "Müşteri kanalına yönlendirilen Slack alertleri",
+      "aud.primary.p5": "Müşteri başına ayda 10-15 saat tasarruf",
+      "aud.team.tag": "İç ekipler için", "aud.team.title": "Tek marka derinliği",
+      "aud.team.desc": "E-ticaret, SaaS, lead-gen — tek bir marka için paid marketing'i siz yönetiyorsanız ve her standup'ta geçen haftanın harcama spike'ını açıklamaktan yorulduysanız, Elephant size sakin, dikkatli ikinci bir göz olur.",
+      "aud.team.p1": "Tek marka odağı, kampanya başına daha derin özelleştirme",
+      "aud.team.p2": "Doğrudan Slack entegrasyonu ekibinizin kanallarına",
+      "aud.team.p3": "Paydaşlar için haftalık digest e-postaları",
+      "aud.team.p4": "Pazarlama, finans, yönetim için rol bazlı erişim",
+      "price.eyebrow": "Fiyatlar",
+      "price.title": "<span class=\"h\">Kurulumunuza özel</span> fiyatlandırma.",
+      "price.sub": "Her hesap farklıdır — müşteri sayısı, reklam harcaması, entegrasyonlar, raporlama ihtiyacı. Sizi uymayan bir pakete sıkıştırmak yerine 20 dakika konuşmayı ve adil bir teklif vermeyi tercih ederiz.",
+      "price.single.badge": "Özel fiyatlandırma",
+      "price.single.amount": "Konuşalım",
+      "price.single.desc": "20 dakikalık bir demo, hesaplarınıza bir bakış, gerçekten ihtiyacınız olana uygun adil bir teklif. Aşıp kaldığınız paket yok, kullanımın arkasında kilitli özellikler yok.",
+      "price.single.f1": "Üç modül de dahil — Anomaly Gate, Query Analytics, LP Report",
+      "price.single.f2": "Tek markadan çoklu müşteri ajans kurulumlarına kadar ölçeklenir",
+      "price.single.f3": "Her planda white-label raporlar & Slack entegrasyonu",
+      "price.single.f4": "Süreç boyunca onboarding & özel destek",
+      "price.single.cta": "20 dk demo planla",
+      "trust.eyebrow": "Güvenlik & uyum",
+      "trust.title": "Veriniz, <span class=\"h\">her katmanda korunur.</span>",
+      "trust.sub": "Banka düzeyinde şifreleme, AB veri yerleşimi, tasarımla GDPR uyumlu. Varsayılan olarak salt-okunuruz — Elephant reklam hesaplarınızda asla değişiklik yapmaz.",
+      "trust.b1.n": "GDPR uyumlu", "trust.b1.d": "Veri işleme sözleşmesi",
+      "trust.b2.n": "256-bit SSL", "trust.b2.d": "Uçtan uca şifreleme",
+      "trust.b3.n": "AB'de barındırılır", "trust.b3.d": "AB veri merkezleri",
+      "trust.b4.n": "Salt-okunur", "trust.b4.d": "Yazma erişimi yok",
+      "faq.eyebrow": "S.S.S.", "faq.title": "Sık sorulan <span class=\"h\">sorular</span>",
+      "faq.q1": "Kurulum ne kadar sürer?",
+      "faq.a1": "OAuth bağlantısı hızlıdır. 3 gün içinde Elephant baseline'larınızı öğrenir ve önemli alertleri öne çıkarmaya başlar. Sizin tarafınızda mühendislik gerekmez — hepsi OAuth.",
+      "faq.q2": "Elephant reklam hesaplarımızda bir şey değiştirir mi?",
+      "faq.a2": "Hayır. Elephant varsayılan olarak salt-okunurdur. İnsight ve önerileri öne çıkarırız ama her aksiyonu — kampanya durdurma, negatif kelime ekleme, tag düzeltme — siz alırsınız. Akıllı ikinci görüş, otopilot değil.",
+      "faq.q3": "Looker Studio veya başka bir BI aracından farkı ne?",
+      "faq.a3": "BI araçları size veriyi gösterir. Elephant size ne yapacağınızı söyler. Looker Studio yorumlamanız gereken güzel bir dashboard'dur. Elephant önce yorumlar, sonra öne çıkarır — sadece öne çıkarmaya değer bir şey varsa.",
+      "faq.q4": "Verimiz nerede saklanıyor? GDPR uyumlu mu?",
+      "faq.a4": "Tüm veriler AB veri merkezlerinde işlenir ve saklanır. Tasarım gereği GDPR uyumluyuz — kayıt sırasında DPA sağlanır, müşteri verisini asla paylaşmayız veya satmayız. Özel veri yerleşimi talep üzerine sağlanır.",
+      "faq.q5": "İptal edersek ne olur?",
+      "faq.a5": "Dashboard'unuzdan istediğiniz zaman iptal edebilirsiniz. Verileriniz 30 gün erişilebilir kalır ki her şeyi export edebilesiniz, sonra kalıcı silinir. Bağlanma yok, ceza yok.",
+      "faq.q6": "Müşterilerimiz için raporları white-label yapabilir miyiz?",
+      "faq.a6": "Evet — her kurulumda white-label PDF raporlar dahildir; ajans logonuz, renkleriniz ve footer'ınızla. Raporlar iç-teknik bulguları müşteri diline otomatik ayırır.",
+      "contact.eyebrow": "İletişime geçin",
+      "contact.title": "Elephant <span class=\"h\">stack'inize</span> uyuyor mu, bakalım.",
+      "contact.sub": "20 dakikalık bir demo planla, Elephant'ı gerçek bir hesapta çalışırken gösterelim — isterseniz sizinki. Slayt yok, baskıcı satış konuşması yok. Sadece ürün.",
+      "contact.email": "E-posta",
+      "form.name": "Adınız", "form.email": "İş e-postası", "form.company": "Şirket", "form.role": "Ben bir…",
+      "form.r1": "Ajans sahibi / lideri", "form.r2": "İç ekip pazarlama lideri", "form.r3": "Performans uzmanı", "form.r4": "Diğer",
+      "form.msg": "Bilmemiz gereken bir şey? (opsiyonel)", "form.cta": "Demo iste",
+      "form.error": "Lütfen zorunlu alanları doldurun.",
+      "form.success.title": "Mesajınız bize ulaştı",
+      "form.success.msg": "24 saat içinde size döneceğiz.",
+      "footer.tag": "Pazarlama verisinin hafıza katmanı. Sessizce izler, sadece önemli olanı öne çıkarır.",
+      "footer.product": "Ürün", "footer.ag": "Anomaly Gate", "footer.qa": "Query Analytics", "footer.lp": "LP Report", "footer.pricing": "Fiyatlar", "footer.changelog": "Sürüm notları",
+      "footer.resources": "Kaynaklar", "footer.docs": "Dokümantasyon", "footer.blog": "Blog", "footer.guides": "Rehberler", "footer.api": "API referansı",
+      "footer.company": "Şirket", "footer.about": "Hakkımızda", "footer.contact": "İletişim", "footer.privacy": "Gizlilik", "footer.terms": "Şartlar", "footer.dpa": "DPA",
+      "footer.copy": "© 2026 Elephant AI. Tüm hakları saklıdır.", "footer.status": "Tüm sistemler operasyonel · v0.4"
+    }
+  };
+
+  function setLang(lang) {
+    document.documentElement.lang = lang;
+    const dict = i18n[lang];
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (dict[key] !== undefined) el.innerHTML = dict[key];
+    });
+    document.querySelectorAll('[data-set-lang]').forEach(btn => {
+      btn.classList.toggle('active', btn.getAttribute('data-set-lang') === lang);
+    });
+    try { localStorage.setItem('elephant-lang', lang); } catch(e) {}
+    // Restart rotator on language change
+    startRotator();
+  }
+
+  document.querySelectorAll('[data-set-lang]').forEach(btn => {
+    btn.addEventListener('click', () => setLang(btn.getAttribute('data-set-lang')));
+  });
+
+  let initialLang = 'en';
+  try {
+    const stored = localStorage.getItem('elephant-lang');
+    if (stored && i18n[stored]) initialLang = stored;
+    else if ((navigator.language || '').toLowerCase().startsWith('tr')) initialLang = 'tr';
+  } catch(e) {}
+
+  /* ───── Demo CTA — scroll directly to form & focus first input ───── */
+  document.querySelectorAll('a[href="#contact"]').forEach(link => {
+    link.addEventListener('click', (e) => {
+      // Skip the "Contact" nav link — let it scroll to the section start naturally
+      if (link.closest('.nav-mid') || link.closest('.foot-col')) return;
+
+      e.preventDefault();
+      const form = document.getElementById('demo-form');
+      if (!form) return;
+
+      // Offset for sticky nav (approx 60px)
+      const navHeight = document.querySelector('.nav')?.offsetHeight || 60;
+      const top = form.getBoundingClientRect().top + window.pageYOffset - navHeight - 24;
+
+      window.scrollTo({ top, behavior: 'smooth' });
+
+      // Focus first input after scroll settles
+      setTimeout(() => {
+        const firstInput = form.querySelector('input, textarea, select');
+        if (firstInput) firstInput.focus({ preventScroll: true });
+      }, 700);
+    });
+  });
+
+  /* ───── Section anchor links — scroll with nav offset ───── */
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    const href = link.getAttribute('href');
+    // Skip empty, #contact (handled above), and external
+    if (!href || href === '#' || href === '#contact') return;
+
+    link.addEventListener('click', (e) => {
+      const targetId = href.slice(1);
+      const target = document.getElementById(targetId);
+      if (!target) return;
+
+      e.preventDefault();
+      const navHeight = document.querySelector('.nav')?.offsetHeight || 60;
+      const top = target.getBoundingClientRect().top + window.pageYOffset - navHeight - 16;
+      window.scrollTo({ top, behavior: 'smooth' });
+    });
+  });
+
+  /* ───── Product tabs ───── */
+  document.querySelectorAll('.prod-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      const target = tab.getAttribute('data-prod');
+      document.querySelectorAll('.prod-tab').forEach(t => t.classList.toggle('active', t === tab));
+      document.querySelectorAll('.prod-panel').forEach(p => p.classList.toggle('active', p.getAttribute('data-panel') === target));
+    });
+  });
+
+  /* ───── FAQ toggle ───── */
+  document.querySelectorAll('.faq-q').forEach(q => {
+    q.addEventListener('click', () => {
+      const item = q.closest('.faq-item');
+      const wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!wasOpen) item.classList.add('open');
+    });
+  });
+
+  /* ───── Rotating words ───── */
+  let rotatorTimer = null;
+  function startRotator() {
+    if (rotatorTimer) clearInterval(rotatorTimer);
+    const track = document.getElementById('rotator-track');
+    const wrapper = document.getElementById('rotator');
+    if (!track || !wrapper) return;
+    const spans = track.querySelectorAll('span');
+    if (spans.length === 0) return;
+
+    // Set width of wrapper to widest item
+    let maxW = 0;
+    spans.forEach(s => {
+      s.style.visibility = 'hidden';
+      s.style.position = 'absolute';
+    });
+    spans.forEach(s => {
+      s.style.position = 'static';
+      s.style.visibility = 'visible';
+      const w = s.getBoundingClientRect().width;
+      if (w > maxW) maxW = w;
+      s.style.visibility = 'visible';
+    });
+    wrapper.style.minWidth = (maxW + 8) + 'px';
+
+    let i = 0;
+    const total = spans.length - 1; // last is duplicate of first
+    track.style.transform = `translateY(0)`;
+    const itemHeight = spans[0].getBoundingClientRect().height;
+
+    rotatorTimer = setInterval(() => {
+      i++;
+      track.style.transition = 'transform 0.5s cubic-bezier(0.65, 0.05, 0.36, 1)';
+      track.style.transform = `translateY(-${i * itemHeight}px)`;
+      if (i >= total) {
+        setTimeout(() => {
+          track.style.transition = 'none';
+          i = 0;
+          track.style.transform = `translateY(0)`;
+        }, 520);
+      }
+    }, 2200);
+  }
+
+  /* ───── Demo form: validation + Apps Script POST + success ───── */
+  (() => {
+    const form = document.getElementById('demo-form');
+    if (!form) return;
+    const errorBox = document.getElementById('form-error');
+    const successBox = document.getElementById('form-success');
+    const requiredFields = form.querySelectorAll('input[required], textarea[required]');
+    const submitBtn = form.querySelector('button[type="submit"]');
+
+    const ENDPOINT = 'https://script.google.com/macros/s/AKfycbxRy3lX8R8XciRK_rZRMRh31pdoapz0DJR2XWcWgtWG6FC0Sv3Mtvv1or2CvYOlg3UOXQ/exec';
+
+    // Clear invalid state when user starts typing
+    requiredFields.forEach(field => {
+      field.addEventListener('input', () => {
+        field.closest('.form-row')?.classList.remove('invalid');
+        if (Array.from(requiredFields).every(f => f.value.trim() !== '' && f.checkValidity())) {
+          errorBox.style.display = 'none';
+        }
+      });
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // Validate
+      let firstInvalid = null;
+      let allValid = true;
+      requiredFields.forEach(field => {
+        const row = field.closest('.form-row');
+        if (field.value.trim() === '' || !field.checkValidity()) {
+          row?.classList.add('invalid');
+          if (!firstInvalid) firstInvalid = field;
+          allValid = false;
+        } else {
+          row?.classList.remove('invalid');
+        }
+      });
+
+      if (!allValid) {
+        errorBox.style.display = 'flex';
+        if (firstInvalid) firstInvalid.focus({ preventScroll: false });
+        return;
+      }
+
+      // Collect form data
+      const name = (document.getElementById('cname')?.value || '').trim();
+      const email = (document.getElementById('cemail')?.value || '').trim();
+      const company = (document.getElementById('ccompany')?.value || '').trim();
+      const roleEl = document.getElementById('crole');
+      const role = roleEl ? roleEl.options[roleEl.selectedIndex].text : '';
+      const message = (document.getElementById('cmsg')?.value || '').trim();
+
+      // Disable button & show pending state
+      const originalBtnContent = submitBtn.innerHTML;
+      submitBtn.disabled = true;
+      submitBtn.style.opacity = '0.7';
+      submitBtn.style.cursor = 'wait';
+      submitBtn.innerHTML = 'Sending…';
+      errorBox.style.display = 'none';
+
+      try {
+        // POST to Apps Script with no-cors mode + text/plain to avoid CORS preflight
+        await fetch(ENDPOINT, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify({ name, email, company, role, message })
+        });
+
+        // Show success — note: with no-cors we can't read response, but Apps Script logs success
+        form.querySelectorAll('.form-row').forEach(row => row.style.display = 'none');
+        submitBtn.style.display = 'none';
+        successBox.style.display = 'block';
+      } catch (err) {
+        // Network-level failure (rare with no-cors)
+        submitBtn.disabled = false;
+        submitBtn.style.opacity = '';
+        submitBtn.style.cursor = '';
+        submitBtn.innerHTML = originalBtnContent;
+        errorBox.textContent = 'Something went wrong. Please try again or email us directly.';
+        errorBox.style.display = 'flex';
+      }
+    });
+  })();
+
+  window.addEventListener('load', () => {
+    setLang(initialLang);
+  });
+</script>
+
+</body>
+</html>
