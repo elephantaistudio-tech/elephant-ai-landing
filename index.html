@@ -1256,7 +1256,7 @@
   }
   .foot-top {
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr;
+    grid-template-columns: 2fr 1fr 1fr;
     gap: 48px;
     margin-bottom: 44px;
   }
@@ -1282,6 +1282,13 @@
     transition: color 0.2s ease;
   }
   .foot-col a:hover { color: var(--cream); }
+  .foot-soon {
+    color: var(--forest-400);
+    font-size: 13px;
+    opacity: 0.55;
+    cursor: default;
+    user-select: none;
+  }
 
   .foot-bot {
     border-top: 1px solid rgba(245, 224, 122, 0.08);
@@ -2049,26 +2056,16 @@
           <li><a href="#products" data-i18n="footer.qa">Query Analytics</a></li>
           <li><a href="#products" data-i18n="footer.lp">LP Report</a></li>
           <li><a href="#pricing" data-i18n="footer.pricing">Pricing</a></li>
-          <li><a href="#" data-i18n="footer.changelog">Changelog</a></li>
-        </ul>
-      </div>
-      <div class="foot-col">
-        <h5 data-i18n="footer.resources">Resources</h5>
-        <ul>
-          <li><a href="#" data-i18n="footer.docs">Documentation</a></li>
-          <li><a href="#" data-i18n="footer.blog">Blog</a></li>
-          <li><a href="#" data-i18n="footer.guides">Guides</a></li>
-          <li><a href="#" data-i18n="footer.api">API reference</a></li>
         </ul>
       </div>
       <div class="foot-col">
         <h5 data-i18n="footer.company">Company</h5>
         <ul>
-          <li><a href="#" data-i18n="footer.about">About</a></li>
+          <li><span class="foot-soon" data-i18n="footer.about">About</span></li>
           <li><a href="#contact" data-i18n="footer.contact">Contact</a></li>
-          <li><a href="#" data-i18n="footer.privacy">Privacy</a></li>
-          <li><a href="#" data-i18n="footer.terms">Terms</a></li>
-          <li><a href="#" data-i18n="footer.dpa">DPA</a></li>
+          <li><span class="foot-soon" data-i18n="footer.privacy">Privacy</span></li>
+          <li><span class="foot-soon" data-i18n="footer.terms">Terms</span></li>
+          <li><span class="foot-soon" data-i18n="footer.dpa">DPA</span></li>
         </ul>
       </div>
     </div>
@@ -2199,8 +2196,7 @@
       "form.success.title": "Thanks for reaching out",
       "form.success.msg": "We'll get back to you within 24 hours.",
       "footer.tag": "The memory layer for marketing data. Quietly watching, surfacing only what matters.",
-      "footer.product": "Product", "footer.ag": "Anomaly Gate", "footer.qa": "Query Analytics", "footer.lp": "LP Report", "footer.pricing": "Pricing", "footer.changelog": "Changelog",
-      "footer.resources": "Resources", "footer.docs": "Documentation", "footer.blog": "Blog", "footer.guides": "Guides", "footer.api": "API reference",
+      "footer.product": "Product", "footer.ag": "Anomaly Gate", "footer.qa": "Query Analytics", "footer.lp": "LP Report", "footer.pricing": "Pricing",
       "footer.company": "Company", "footer.about": "About", "footer.contact": "Contact", "footer.privacy": "Privacy", "footer.terms": "Terms", "footer.dpa": "DPA",
       "footer.copy": "© 2026 Elephant AI. All rights reserved.", "footer.status": "All systems operational · v0.4"
     },
@@ -2318,8 +2314,7 @@
       "form.success.title": "Mesajınız bize ulaştı",
       "form.success.msg": "24 saat içinde size döneceğiz.",
       "footer.tag": "Pazarlama verisinin hafıza katmanı. Sessizce izler, sadece önemli olanı öne çıkarır.",
-      "footer.product": "Ürün", "footer.ag": "Anomaly Gate", "footer.qa": "Query Analytics", "footer.lp": "LP Report", "footer.pricing": "Fiyatlar", "footer.changelog": "Sürüm notları",
-      "footer.resources": "Kaynaklar", "footer.docs": "Dokümantasyon", "footer.blog": "Blog", "footer.guides": "Rehberler", "footer.api": "API referansı",
+      "footer.product": "Ürün", "footer.ag": "Anomaly Gate", "footer.qa": "Query Analytics", "footer.lp": "LP Report", "footer.pricing": "Fiyatlar",
       "footer.company": "Şirket", "footer.about": "Hakkımızda", "footer.contact": "İletişim", "footer.privacy": "Gizlilik", "footer.terms": "Şartlar", "footer.dpa": "DPA",
       "footer.copy": "© 2026 Elephant AI. Tüm hakları saklıdır.", "footer.status": "Tüm sistemler operasyonel · v0.4"
     }
